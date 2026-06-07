@@ -1,0 +1,2810 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn Tập CTDLGT — HUIT 2025-2026</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #21262d;
+  --bg4: #2d333b;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #6e7681;
+  --blue: #58a6ff;
+  --blue-bg: #1f3a5f;
+  --green: #3fb950;
+  --green-bg: #1a3a2a;
+  --orange: #f0883e;
+  --orange-bg: #3d2710;
+  --purple: #bc8cff;
+  --purple-bg: #2d1f4e;
+  --red: #ff7b72;
+  --red-bg: #3d1a1a;
+  --yellow: #e3b341;
+  --yellow-bg: #3a2a00;
+  --teal: #39d353;
+  --pink: #f778ba;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Be Vietnam Pro', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* HEADER */
+.site-header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 52px;
+  overflow: hidden;
+}
+
+.logo {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--blue);
+  margin-right: 32px;
+  white-space: nowrap;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  padding: 0 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  border-radius: 0;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.nav-tab:hover { color: var(--text); }
+
+.nav-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--orange);
+}
+
+.tab-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+  min-height: calc(100vh - 52px);
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.sidebar-section {
+  margin-bottom: 8px;
+}
+
+.sidebar-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 16px 8px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.1s, color 0.1s;
+  border-left: 2px solid transparent;
+}
+
+.sidebar-item:hover {
+  background: var(--bg3);
+  color: var(--text);
+}
+
+.sidebar-item.active {
+  background: var(--bg3);
+  color: var(--text);
+  border-left-color: var(--orange);
+}
+
+.sidebar-item .si-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  background: var(--bg4);
+  padding: 1px 5px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* MAIN CONTENT */
+.main {
+  flex: 1;
+  padding: 32px 40px;
+  max-width: 900px;
+  min-width: 0;
+}
+
+/* SECTION PAGES */
+.section-page { display: none; }
+.section-page.active { display: block; }
+
+/* CONTENT COMPONENTS */
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--mono);
+}
+
+.badge-blue { background: var(--blue-bg); color: var(--blue); }
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-orange { background: var(--orange-bg); color: var(--orange); }
+.badge-purple { background: var(--purple-bg); color: var(--purple); }
+.badge-red { background: var(--red-bg); color: var(--red); }
+.badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+
+.page-desc {
+  color: var(--text2);
+  margin-bottom: 32px;
+  font-size: 14px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 32px 0;
+}
+
+/* CARDS */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-title .num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text3);
+  background: var(--bg4);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+/* CODE BLOCKS */
+pre {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 12px 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--bg3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--orange);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: var(--text);
+  font-size: inherit;
+}
+
+/* SYNTAX HIGHLIGHT */
+.kw { color: #ff7b72; }
+.tp { color: #ffa657; }
+.fn { color: #d2a8ff; }
+.cm { color: #8b949e; font-style: italic; }
+.st { color: #a5d6ff; }
+.nm { color: #79c0ff; }
+.op { color: #ff7b72; }
+
+/* COPY BUTTON */
+.code-block {
+  position: relative;
+  margin: 12px 0;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--mono);
+  transition: background 0.1s, color 0.1s;
+}
+
+.copy-btn:hover { background: var(--border); color: var(--text); }
+.copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+/* INFO / WARNING BOXES */
+.info-box {
+  border-left: 3px solid;
+  padding: 12px 16px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 14px 0;
+  font-size: 14px;
+}
+
+.info-box.tip { border-color: var(--blue); background: var(--blue-bg); }
+.info-box.warn { border-color: var(--yellow); background: var(--yellow-bg); }
+.info-box.success { border-color: var(--green); background: var(--green-bg); }
+.info-box.danger { border-color: var(--red); background: var(--red-bg); }
+
+.info-box strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  font-family: var(--mono);
+}
+
+.info-box.tip strong { color: var(--blue); }
+.info-box.warn strong { color: var(--yellow); }
+.info-box.success strong { color: var(--green); }
+.info-box.danger strong { color: var(--red); }
+
+/* TABLES */
+.tbl-wrap { overflow-x: auto; margin: 14px 0; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+}
+
+th {
+  background: var(--bg3);
+  color: var(--text2);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg3); }
+
+/* SECTION HEADINGS */
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+  color: var(--text);
+}
+
+h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text2);
+  margin: 14px 0 8px;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+}
+
+p { margin: 8px 0; color: var(--text2); font-size: 14px; }
+
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin: 4px 0; color: var(--text2); font-size: 14px; }
+li strong { color: var(--text); }
+
+/* TRACE TABLE */
+.trace-table { font-family: var(--mono); }
+.trace-table td { font-size: 12px; }
+
+/* GRID */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 14px 0;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+/* PATTERN CARD */
+.pattern-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.pattern-card h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: var(--orange);
+}
+
+/* FORMULA */
+.formula {
+  font-family: var(--mono);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--purple);
+  padding: 12px 16px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 14px;
+  margin: 10px 0;
+  color: var(--purple);
+}
+
+/* STEP LIST */
+.steps { counter-reset: step; list-style: none; padding: 0; margin: 12px 0; }
+.steps li {
+  counter-increment: step;
+  padding: 8px 8px 8px 40px;
+  position: relative;
+  border-left: 1px solid var(--border);
+  margin: 0;
+  margin-left: 12px;
+}
+.steps li:before {
+  content: counter(step);
+  position: absolute;
+  left: -12px;
+  top: 8px;
+  width: 24px; height: 24px;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+}
+.steps li:last-child { border-left-color: transparent; }
+
+/* ACCORDION */
+.accordion { margin: 12px 0; }
+.acc-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 6px; overflow: hidden; }
+.acc-header {
+  padding: 12px 16px;
+  background: var(--bg3);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.1s;
+}
+.acc-header:hover { background: var(--bg4); }
+.acc-body { display: none; padding: 16px; background: var(--bg2); border-top: 1px solid var(--border); }
+.acc-item.open .acc-body { display: block; }
+.acc-arrow { transition: transform 0.2s; color: var(--text3); }
+.acc-item.open .acc-arrow { transform: rotate(180deg); }
+
+/* SUMMARY BOX */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.summary-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.summary-item .si-label {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.summary-item .si-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* QUIZ */
+.quiz-box {
+  background: var(--purple-bg);
+  border: 1px solid #4a3580;
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.quiz-q { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+
+.quiz-opt {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 13px;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left;
+  color: var(--text);
+}
+
+.quiz-opt:hover { border-color: var(--purple); background: var(--bg4); }
+.quiz-opt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.quiz-opt.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); }
+
+.quiz-feedback {
+  margin-top: 12px;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  display: none;
+}
+
+.quiz-feedback.show { display: block; }
+.quiz-feedback.ok { background: var(--green-bg); color: var(--green); border: 1px solid #2a6a3a; }
+.quiz-feedback.no { background: var(--red-bg); color: var(--red); border: 1px solid #6a2a2a; }
+
+/* HIGHLIGHT LINE */
+.hl { background: rgba(88, 166, 255, 0.1); border-left: 2px solid var(--blue); }
+.hl-orange { background: rgba(240, 136, 62, 0.1); border-left: 2px solid var(--orange); }
+.hl-green { background: rgba(63, 185, 80, 0.1); border-left: 2px solid var(--green); }
+
+/* AVL TREE VISUAL */
+.tree-visual {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  line-height: 1.8;
+  color: var(--text);
+  margin: 12px 0;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* ROTATION DEMO */
+.rot-demo {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 14px 0;
+}
+
+.rot-arrow {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--orange);
+  text-align: center;
+}
+
+.rot-label {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--text3);
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* HASH VISUAL */
+.hash-table-visual {
+  font-family: var(--mono);
+  font-size: 13px;
+  margin: 14px 0;
+}
+
+.hash-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+  gap: 0;
+}
+
+.hash-idx {
+  width: 36px;
+  color: var(--text3);
+  font-size: 12px;
+  text-align: right;
+  padding-right: 8px;
+  flex-shrink: 0;
+}
+
+.hash-cell {
+  min-width: 52px;
+  height: 32px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg3);
+  font-size: 13px;
+  color: var(--text);
+  margin-right: -1px;
+}
+
+.hash-cell.filled { background: var(--blue-bg); color: var(--blue); border-color: #3a6ea0; }
+.hash-cell.collision { background: var(--orange-bg); color: var(--orange); border-color: #8a4020; }
+.hash-chain { color: var(--text3); margin-left: 4px; }
+.hash-node { background: var(--orange-bg); border: 1px solid #8a4020; color: var(--orange); padding: 3px 10px; border-radius: 4px; margin-left: 4px; font-size: 12px; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { padding: 20px 16px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-family: var(--mono);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.tag-blue { background: var(--blue-bg); color: var(--blue); }
+.tag-green { background: var(--green-bg); color: var(--green); }
+.tag-orange { background: var(--orange-bg); color: var(--orange); }
+.tag-red { background: var(--red-bg); color: var(--red); }
+
+.progress-bar-wrap { background: var(--bg3); border-radius: 4px; height: 6px; margin: 6px 0 16px; }
+.progress-bar { height: 6px; border-radius: 4px; background: var(--orange); transition: width 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">CTDLGT_2025</div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('p1')">
+      <span class="tab-dot" style="background:#58a6ff"></span>P1 — DSLK
+    </button>
+    <button class="nav-tab" onclick="switchTab('p2')">
+      <span class="tab-dot" style="background:#3fb950"></span>P2 — Stack/Queue
+    </button>
+    <button class="nav-tab" onclick="switchTab('p3')">
+      <span class="tab-dot" style="background:#f0883e"></span>P3 — Cây AVL
+    </button>
+    <button class="nav-tab" onclick="switchTab('p4')">
+      <span class="tab-dot" style="background:#bc8cff"></span>P4 — Hash Table
+    </button>
+    <button class="nav-tab" onclick="switchTab('quiz')">
+      <span class="tab-dot" style="background:#f778ba"></span>Quiz
+    </button>
+  </nav>
+  <a href="checker_ctdlgt.html" style="
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    background: #1a1730;
+    border: 1px solid #3a3a50;
+    border-radius: 8px;
+    color: #a594ff;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: var(--mono);
+    white-space: nowrap;
+    transition: border-color 0.15s, background 0.15s;
+    flex-shrink: 0;
+  " onmouseover="this.style.borderColor='#7c6dff';this.style.background='#231f45'"
+     onmouseout="this.style.borderColor='#3a3a50';this.style.background='#1a1730'">
+    <span style="font-size:14px">▶</span> Code Checker
+  </a>
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <!-- populated by JS -->
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ===== P1: DSLK ===== -->
+<div class="section-page active" id="page-p1">
+  <div class="page-title">
+    Danh Sách Liên Kết Đơn
+    <span class="badge badge-blue">PHẦN 1</span>
+  </div>
+  <p class="page-desc">Khai báo struct, thao tác cơ bản và 13 bài toán ứng dụng.</p>
+
+  <h2 id="p1-struct">1. Khai báo cấu trúc nền</h2>
+  <div class="info-box tip"><strong>Nhớ thuộc lòng</strong>Đây là bộ khung bắt buộc cho mọi bài DSLK. head trỏ đầu, tail trỏ cuối, next của nút cuối = nullptr.</div>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="kw">#include</span> <span class="st">&lt;iostream&gt;</span>
+<span class="kw">#include</span> <span class="st">&lt;cmath&gt;</span>
+<span class="kw">using namespace</span> std;
+
+<span class="kw">struct</span> <span class="tp">SNode</span> {
+    <span class="tp">int</span> data;
+    <span class="tp">SNode</span>* next;
+};
+
+<span class="kw">struct</span> <span class="tp">SList</span> {
+    <span class="tp">SNode</span>* head;
+    <span class="tp">SNode</span>* tail;
+};
+
+<span class="kw">void</span> <span class="fn">khoitao</span>(<span class="tp">SList</span> &L) {
+    L.head = L.tail = <span class="kw">nullptr</span>;
+}
+
+<span class="tp">SNode</span>* <span class="fn">taonut</span>(<span class="tp">int</span> x) {
+    <span class="tp">SNode</span>* p = <span class="kw">new</span> <span class="tp">SNode</span>;
+    p->data = x;
+    p->next = <span class="kw">nullptr</span>;
+    <span class="kw">return</span> p;
+}</code></pre>
+  </div>
+
+  <h2 id="p1-basic">2. Thao tác cơ sở</h2>
+
+  <div class="grid-2">
+    <div>
+      <h3>Thêm vào cuối</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        <pre><code><span class="kw">void</span> <span class="fn">themcuoi</span>(<span class="tp">SList</span> &L, <span class="tp">int</span> x) {
+    <span class="tp">SNode</span>* p = <span class="fn">taonut</span>(x);
+    <span class="kw">if</span> (L.head == <span class="kw">nullptr</span>)
+        L.head = L.tail = p;
+    <span class="kw">else</span> {
+        L.tail->next = p;
+        L.tail = p;
+    }
+}</code></pre>
+      </div>
+    </div>
+    <div>
+      <h3>Thêm vào đầu</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        <pre><code><span class="kw">void</span> <span class="fn">themdau</span>(<span class="tp">SList</span> &L, <span class="tp">int</span> x) {
+    <span class="tp">SNode</span>* p = <span class="fn">taonut</span>(x);
+    <span class="kw">if</span> (L.head == <span class="kw">nullptr</span>)
+        L.head = L.tail = p;
+    <span class="kw">else</span> {
+        p->next = L.head;
+        L.head = p;
+    }
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="p1-bt">3. 13 Bài toán ứng dụng</h2>
+
+  <div class="accordion">
+
+    <div class="acc-item" id="dslk-b1">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">01</span>Tổng các nút là số chính phương</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="info-box tip"><strong>Số chính phương</strong>n ≥ 0 và √n là số nguyên. Ví dụ: 0, 1, 4, 9, 16, 25...</div>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">bool</span> <span class="fn">lascphuong</span>(<span class="tp">int</span> n) {
+    <span class="kw">if</span> (n < <span class="nm">0</span>) <span class="kw">return false</span>;
+    <span class="tp">int</span> s = (<span class="tp">int</span>)<span class="fn">sqrt</span>((<span class="tp">double</span>)n);
+    <span class="kw">return</span> s * s == n;
+}
+
+<span class="tp">int</span> <span class="fn">tongscphuong</span>(<span class="tp">SList</span> L) {
+    <span class="tp">int</span> s = <span class="nm">0</span>;
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        <span class="kw">if</span> (<span class="fn">lascphuong</span>(p->data))
+            s += p->data;
+        p = p->next;
+    }
+    <span class="kw">return</span> s;
+}</code></pre>
+        </div>
+        <div class="info-box warn"><strong>Lưu ý thi</strong>Phải check n &lt; 0 trước khi gọi sqrt. Nếu không sẽ có kết quả sai với số âm.</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">02</span>Đếm số lượng phần tử</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">int</span> <span class="fn">dempt</span>(<span class="tp">SList</span> L) {
+    <span class="tp">int</span> dem = <span class="nm">0</span>;
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        dem++;
+        p = p->next;
+    }
+    <span class="kw">return</span> dem;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">03</span>Tọa độ đỉnh đa giác 2D — tính chu vi</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="info-box tip"><strong>Ý tưởng</strong>Thay int data bằng float x, y. Tổng khoảng cách giữa các đỉnh kề nhau + cạnh cuối nối về đầu.</div>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">struct</span> <span class="tp">SNode</span> {
+    <span class="tp">float</span> x, y;
+    <span class="tp">SNode</span>* next;
+};
+
+<span class="tp">float</span> <span class="fn">khoangcach</span>(<span class="tp">SNode</span>* a, <span class="tp">SNode</span>* b) {
+    <span class="tp">float</span> dx = a->x - b->x;
+    <span class="tp">float</span> dy = a->y - b->y;
+    <span class="kw">return</span> <span class="fn">sqrt</span>(dx*dx + dy*dy);
+}
+
+<span class="tp">float</span> <span class="fn">tinchuvida</span>(<span class="tp">SList</span> L) {
+    <span class="kw">if</span> (L.head == <span class="kw">nullptr</span> || L.head->next == <span class="kw">nullptr</span>)
+        <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="tp">float</span> cv = <span class="nm">0</span>;
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p->next != <span class="kw">nullptr</span>) {
+        cv += <span class="fn">khoangcach</span>(p, p->next);
+        p = p->next;
+    }
+    cv += <span class="fn">khoangcach</span>(L.tail, L.head); <span class="cm">// đóng đa giác</span>
+    <span class="kw">return</span> cv;
+}</code></pre>
+        </div>
+        <div class="info-box warn"><strong>Hay quên</strong>Cộng thêm cạnh nối tail → head để đóng đa giác!</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">04-06</span>Thông tin sinh viên — DTB, sắp xếp, top 3</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">struct</span> <span class="tp">SinhVien</span> {
+    <span class="tp">char</span> maSV[<span class="nm">10</span>], ten[<span class="nm">50</span>];
+    <span class="tp">float</span> diemGK, diemTL, diemCK, dtb;
+};
+
+<span class="kw">struct</span> <span class="tp">SNode</span> { <span class="tp">SinhVien</span> data; <span class="tp">SNode</span>* next; };
+
+<span class="tp">float</span> <span class="fn">tinhdtb</span>(<span class="tp">SinhVien</span> sv) {
+    <span class="kw">return</span> sv.diemGK * <span class="nm">0.2</span> + sv.diemTL * <span class="nm">0.2</span> + sv.diemCK * <span class="nm">0.6</span>;
+}
+
+<span class="cm">// Sắp xếp giảm dần — Bubble Sort (swap data)</span>
+<span class="kw">void</span> <span class="fn">sapxepgiam</span>(<span class="tp">SList</span> &L) {
+    <span class="tp">bool</span> doicho;
+    <span class="kw">do</span> {
+        doicho = <span class="kw">false</span>;
+        <span class="tp">SNode</span>* p = L.head;
+        <span class="kw">while</span> (p->next != <span class="kw">nullptr</span>) {
+            <span class="kw">if</span> (p->data.dtb < p->next->data.dtb) {
+                <span class="tp">SinhVien</span> tmp = p->data;
+                p->data = p->next->data;
+                p->next->data = tmp;
+                doicho = <span class="kw">true</span>;
+            }
+            p = p->next;
+        }
+    } <span class="kw">while</span> (doicho);
+}
+
+<span class="cm">// Xuất top 3</span>
+<span class="kw">void</span> <span class="fn">xuattop3</span>(<span class="tp">SList</span> L) {
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="tp">int</span> dem = <span class="nm">0</span>;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span> && dem < <span class="nm">3</span>) {
+        cout << p->data.ten << <span class="st">" - DTB: "</span> << p->data.dtb << endl;
+        p = p->next; dem++;
+    }
+}</code></pre>
+        </div>
+        <div class="info-box tip"><strong>Mẹo thi</strong>Khi thi dùng swap data (không swap con trỏ) — đơn giản hơn nhiều và vẫn đúng hoàn toàn.</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">07</span>Đa thức P(x) — tính giá trị</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">struct</span> <span class="tp">SNode</span> {
+    <span class="tp">float</span> heso;  <span class="cm">// hệ số</span>
+    <span class="tp">int</span> bac;     <span class="cm">// bậc</span>
+    <span class="tp">SNode</span>* next;
+};
+
+<span class="tp">float</span> <span class="fn">tinhpx</span>(<span class="tp">SList</span> L, <span class="tp">float</span> x) {
+    <span class="tp">float</span> kq = <span class="nm">0</span>;
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        kq += p->heso * <span class="fn">pow</span>(x, p->bac);
+        p = p->next;
+    }
+    <span class="kw">return</span> kq;
+}</code></pre>
+        </div>
+        <p>Ví dụ: P(x) = 3x² + 2x + 1 → P(2) = 3×4 + 2×2 + 1 = <strong style="color:var(--orange)">17</strong></p>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">08</span>Tách DSLK thành chẵn / lẻ</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">void</span> <span class="fn">tachcl</span>(<span class="tp">SList</span> L, <span class="tp">SList</span> &Lc, <span class="tp">SList</span> &Ll) {
+    <span class="fn">khoitao</span>(Lc); <span class="fn">khoitao</span>(Ll);
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        <span class="kw">if</span> (p->data % <span class="nm">2</span> == <span class="nm">0</span>)
+            <span class="fn">themcuoi</span>(Lc, p->data);
+        <span class="kw">else</span>
+            <span class="fn">themcuoi</span>(Ll, p->data);
+        p = p->next;
+    }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">09</span>Đếm chia hết cho 3 + nhân đôi</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">int</span> <span class="fn">demvanhando</span>(<span class="tp">SList</span> &L) {
+    <span class="tp">int</span> dem = <span class="nm">0</span>;
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        <span class="kw">if</span> (p->data % <span class="nm">3</span> == <span class="nm">0</span>) {
+            dem++;
+            p->data *= <span class="nm">2</span>; <span class="cm">// nhân đôi tại chỗ</span>
+        }
+        p = p->next;
+    }
+    <span class="kw">return</span> dem;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">10</span>Trung bình cộng các phần tử &gt; 10</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">float</span> <span class="fn">tblon10</span>(<span class="tp">SList</span> L) {
+    <span class="tp">float</span> tong = <span class="nm">0</span>; <span class="tp">int</span> dem = <span class="nm">0</span>;
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        <span class="kw">if</span> (p->data > <span class="nm">10</span>) { tong += p->data; dem++; }
+        p = p->next;
+    }
+    <span class="kw">if</span> (dem == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">return</span> tong / dem;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">11</span>Đảo ngược DSLK ⭐</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="info-box success"><strong>Kỹ thuật 3 con trỏ — hay ra thi nhất!</strong>Dùng prev / cur / nxt để đảo chiều từng cạnh one by one.</div>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">void</span> <span class="fn">daonguoc</span>(<span class="tp">SList</span> &L) {
+    <span class="tp">SNode</span> *prev = <span class="kw">nullptr</span>, *cur = L.head, *nxt = <span class="kw">nullptr</span>;
+    L.tail = L.head; <span class="cm">// tail mới = head cũ</span>
+    <span class="kw">while</span> (cur != <span class="kw">nullptr</span>) {
+        nxt = cur->next;   <span class="cm">// 1. lưu next</span>
+        cur->next = prev;  <span class="cm">// 2. đảo chiều</span>
+        prev = cur;        <span class="cm">// 3. tiến prev</span>
+        cur = nxt;         <span class="cm">// 4. tiến cur</span>
+    }
+    L.head = prev;
+}</code></pre>
+        </div>
+        <div class="tbl-wrap">
+          <table class="trace-table">
+            <tr><th>Bước</th><th>prev</th><th>cur</th><th>nxt</th><th>Trạng thái</th></tr>
+            <tr><td>0</td><td>null</td><td>1</td><td>—</td><td>1→2→3→null</td></tr>
+            <tr><td>1</td><td>1</td><td>2</td><td>3</td><td>null←1  2→3</td></tr>
+            <tr><td>2</td><td>2</td><td>3</td><td>null</td><td>null←1←2  3→null</td></tr>
+            <tr><td>3</td><td>3</td><td>null</td><td>—</td><td>null←1←2←3 ✓</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">12</span>Nối 2 DSLK</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">void</span> <span class="fn">noidslk</span>(<span class="tp">SList</span> &L1, <span class="tp">SList</span> L2) {
+    <span class="kw">if</span> (L2.head == <span class="kw">nullptr</span>) <span class="kw">return</span>;
+    <span class="kw">if</span> (L1.head == <span class="kw">nullptr</span>) { L1 = L2; <span class="kw">return</span>; }
+    L1.tail->next = L2.head;
+    L1.tail = L2.tail;
+}</code></pre>
+        </div>
+        <div class="info-box success"><strong>O(1)</strong>Không cần duyệt vòng lặp. Chỉ cần nối tail của L1 vào head của L2.</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="num" style="font-family:var(--mono);font-size:11px;background:var(--bg4);padding:2px 7px;border-radius:5px;color:var(--text3);margin-right:8px">13</span>Phân số — tổng, in phân số &gt; 1</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">struct</span> <span class="tp">SNode</span> { <span class="tp">int</span> tuSo, mauSo; <span class="tp">SNode</span>* next; };
+
+<span class="tp">int</span> <span class="fn">ucln</span>(<span class="tp">int</span> a, <span class="tp">int</span> b) {
+    <span class="kw">if</span> (b == <span class="nm">0</span>) <span class="kw">return</span> a;
+    <span class="kw">return</span> <span class="fn">ucln</span>(b, a % b);
+}
+
+<span class="kw">void</span> <span class="fn">tonghps</span>(<span class="tp">SList</span> L) {
+    <span class="tp">int</span> tu = <span class="nm">0</span>, mau = <span class="nm">1</span>;
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        tu = tu * p->mauSo + p->tuSo * mau;
+        mau = mau * p->mauSo;
+        <span class="tp">int</span> g = <span class="fn">ucln</span>(<span class="fn">abs</span>(tu), <span class="fn">abs</span>(mau));
+        tu /= g; mau /= g;
+        p = p->next;
+    }
+    cout << tu << <span class="st">"/"</span> << mau << endl;
+}
+
+<span class="kw">void</span> <span class="fn">inpslonhon1</span>(<span class="tp">SList</span> L) {
+    <span class="tp">SNode</span>* p = L.head;
+    <span class="kw">while</span> (p != <span class="kw">nullptr</span>) {
+        <span class="kw">if</span> (p->tuSo > p->mauSo) <span class="cm">// mauSo > 0</span>
+            cout << p->tuSo << <span class="st">"/"</span> << p->mauSo << endl;
+        p = p->next;
+    }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end accordion -->
+
+  <h2 id="p1-summary">4. Bảng tóm tắt Pattern</h2>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Dạng bài</th><th>Kỹ thuật chính</th><th>Độ khó</th></tr>
+      <tr><td>Tính tổng / đếm có điều kiện</td><td>Duyệt while + if</td><td><span class="badge badge-green">Dễ</span></td></tr>
+      <tr><td>Struct phức tạp (SV, phân số...)</td><td>Thay <code>int data</code> bằng struct</td><td><span class="badge badge-green">Dễ</span></td></tr>
+      <tr><td>Sắp xếp</td><td>Bubble sort — swap data</td><td><span class="badge badge-blue">TB</span></td></tr>
+      <tr><td>Đảo ngược</td><td>3 con trỏ prev/cur/nxt</td><td><span class="badge badge-orange">Khó</span></td></tr>
+      <tr><td>Tách / nối</td><td>Duyệt + themcuoi vào list mới</td><td><span class="badge badge-blue">TB</span></td></tr>
+      <tr><td>Nhân đôi tại chỗ</td><td><code>p->data *= 2</code> trong vòng lặp</td><td><span class="badge badge-green">Dễ</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== P2: STACK/QUEUE ===== -->
+<div class="section-page" id="page-p2">
+  <div class="page-title">Stack &amp; Queue <span class="badge badge-green">PHẦN 2</span></div>
+  <p class="page-desc">LIFO (Stack) và FIFO (Queue) — cấu trúc nền + 10 bài toán trace tay.</p>
+
+  <h2 id="p2-struct">1. Cấu trúc Stack</h2>
+  <div class="info-box tip"><strong>LIFO — Last In First Out</strong>Vào sau ra trước. Như chồng đĩa — đặt lên trên, lấy từ trên.</div>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="nm">#define</span> MAX 100
+
+<span class="kw">struct</span> <span class="tp">Stack</span> {
+    <span class="tp">int</span> data[MAX];
+    <span class="tp">int</span> top;
+};
+
+<span class="kw">void</span> <span class="fn">khoitaoStack</span>(<span class="tp">Stack</span> &s) { s.top = -<span class="nm">1</span>; }
+<span class="tp">bool</span> <span class="fn">rong</span>(<span class="tp">Stack</span> s)  { <span class="kw">return</span> s.top == -<span class="nm">1</span>; }
+<span class="tp">bool</span> <span class="fn">day</span>(<span class="tp">Stack</span> s)   { <span class="kw">return</span> s.top == MAX - <span class="nm">1</span>; }
+
+<span class="kw">void</span> <span class="fn">push</span>(<span class="tp">Stack</span> &s, <span class="tp">int</span> x) {
+    <span class="kw">if</span> (!<span class="fn">day</span>(s)) s.data[++s.top] = x;
+}
+
+<span class="tp">int</span> <span class="fn">pop</span>(<span class="tp">Stack</span> &s) {
+    <span class="kw">if</span> (!<span class="fn">rong</span>(s)) <span class="kw">return</span> s.data[s.top--];
+    <span class="kw">return</span> -<span class="nm">1</span>;
+}
+
+<span class="tp">int</span> <span class="fn">peek</span>(<span class="tp">Stack</span> s) {
+    <span class="kw">if</span> (!<span class="fn">rong</span>(s)) <span class="kw">return</span> s.data[s.top];
+    <span class="kw">return</span> -<span class="nm">1</span>;
+}</code></pre>
+  </div>
+
+  <h2 id="p2-queue">2. Cấu trúc Queue</h2>
+  <div class="info-box tip"><strong>FIFO — First In First Out</strong>Vào trước ra trước. Như hàng đợi — vào từ rear, ra từ front.</div>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="kw">struct</span> <span class="tp">Queue</span> {
+    <span class="tp">int</span> data[MAX];
+    <span class="tp">int</span> front, rear;
+};
+
+<span class="kw">void</span> <span class="fn">khoitaoQueue</span>(<span class="tp">Queue</span> &q) { q.front = q.rear = -<span class="nm">1</span>; }
+<span class="tp">bool</span> <span class="fn">rongQ</span>(<span class="tp">Queue</span> q) { <span class="kw">return</span> q.front == -<span class="nm">1</span>; }
+
+<span class="kw">void</span> <span class="fn">enqueue</span>(<span class="tp">Queue</span> &q, <span class="tp">int</span> x) {
+    <span class="kw">if</span> (q.rear == MAX - <span class="nm">1</span>) <span class="kw">return</span>;
+    <span class="kw">if</span> (<span class="fn">rongQ</span>(q)) q.front = q.rear = <span class="nm">0</span>;
+    <span class="kw">else</span> q.rear++;
+    q.data[q.rear] = x;
+}
+
+<span class="tp">int</span> <span class="fn">dequeue</span>(<span class="tp">Queue</span> &q) {
+    <span class="kw">if</span> (<span class="fn">rongQ</span>(q)) <span class="kw">return</span> -<span class="nm">1</span>;
+    <span class="tp">int</span> x = q.data[q.front];
+    <span class="kw">if</span> (q.front == q.rear) q.front = q.rear = -<span class="nm">1</span>;
+    <span class="kw">else</span> q.front++;
+    <span class="kw">return</span> x;
+}</code></pre>
+  </div>
+
+  <h2 id="p2-infix">3. Infix → Postfix (Stack)</h2>
+  <div class="info-box tip"><strong>Quy tắc độ ưu tiên</strong>( = 0 &nbsp;|&nbsp; + - = 1 &nbsp;|&nbsp; * / = 2</div>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="tp">int</span> <span class="fn">uutien</span>(<span class="tp">char</span> c) {
+    <span class="kw">if</span> (c == <span class="st">'+'</span> || c == <span class="st">'-'</span>) <span class="kw">return</span> <span class="nm">1</span>;
+    <span class="kw">if</span> (c == <span class="st">'*'</span> || c == <span class="st">'/'</span>) <span class="kw">return</span> <span class="nm">2</span>;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}
+
+<span class="kw">void</span> <span class="fn">infixToPostfix</span>(string bt) {
+    <span class="tp">Stack</span> s; <span class="fn">khoitaoStack</span>(s);
+    <span class="kw">for</span> (<span class="tp">char</span> c : bt) {
+        <span class="kw">if</span> (c == <span class="st">' '</span>) <span class="kw">continue</span>;
+        <span class="kw">if</span> (<span class="fn">isdigit</span>(c) || <span class="fn">isalpha</span>(c))
+            cout << c << <span class="st">" "</span>;
+        <span class="kw">else if</span> (c == <span class="st">'('</span>)
+            <span class="fn">push</span>(s, c);
+        <span class="kw">else if</span> (c == <span class="st">')'</span>) {
+            <span class="kw">while</span> (!<span class="fn">rong</span>(s) && <span class="fn">peek</span>(s) != <span class="st">'('</span>)
+                cout << (<span class="tp">char</span>)<span class="fn">pop</span>(s) << <span class="st">" "</span>;
+            <span class="fn">pop</span>(s);
+        } <span class="kw">else</span> {
+            <span class="kw">while</span> (!<span class="fn">rong</span>(s) && <span class="fn">uutien</span>(<span class="fn">peek</span>(s)) >= <span class="fn">uutien</span>(c))
+                cout << (<span class="tp">char</span>)<span class="fn">pop</span>(s) << <span class="st">" "</span>;
+            <span class="fn">push</span>(s, c);
+        }
+    }
+    <span class="kw">while</span> (!<span class="fn">rong</span>(s)) cout << (<span class="tp">char</span>)<span class="fn">pop</span>(s) << <span class="st">" "</span>;
+}</code></pre>
+  </div>
+
+  <h3>Trace tay: <code>((3 + 5) - (6 / 2 - 1)) - 4</code></h3>
+  <div class="tbl-wrap">
+    <table class="trace-table">
+      <tr><th>Ký tự</th><th>Stack</th><th>Output</th><th>Hành động</th></tr>
+      <tr><td>(</td><td>(</td><td></td><td>push (</td></tr>
+      <tr><td>(</td><td>( (</td><td></td><td>push (</td></tr>
+      <tr><td>3</td><td>( (</td><td>3</td><td>in ra</td></tr>
+      <tr><td>+</td><td>( ( +</td><td>3</td><td>push +</td></tr>
+      <tr><td>5</td><td>( ( +</td><td>3 5</td><td>in ra</td></tr>
+      <tr><td>)</td><td>(</td><td>3 5 +</td><td>pop đến (</td></tr>
+      <tr><td>-</td><td>( -</td><td>3 5 +</td><td>push -</td></tr>
+      <tr><td>(</td><td>( - (</td><td>3 5 +</td><td>push (</td></tr>
+      <tr><td>6</td><td>( - (</td><td>3 5 + 6</td><td>in ra</td></tr>
+      <tr><td>/</td><td>( - ( /</td><td>3 5 + 6</td><td>push /</td></tr>
+      <tr><td>2</td><td>( - ( /</td><td>3 5 + 6 2</td><td>in ra</td></tr>
+      <tr><td>-</td><td>( - ( -</td><td>3 5 + 6 2 /</td><td>pop / rồi push -</td></tr>
+      <tr><td>1</td><td>( - ( -</td><td>3 5 + 6 2 / 1</td><td>in ra</td></tr>
+      <tr><td>)</td><td>( -</td><td>3 5 + 6 2 / 1 -</td><td>pop đến (</td></tr>
+      <tr><td>)</td><td></td><td>3 5 + 6 2 / 1 - -</td><td>pop đến (</td></tr>
+      <tr><td>-</td><td>-</td><td>3 5 + 6 2 / 1 - -</td><td>push -</td></tr>
+      <tr><td>4</td><td>-</td><td>3 5 + 6 2 / 1 - - 4</td><td>in ra</td></tr>
+      <tr><td>hết</td><td></td><td style="color:var(--green);font-weight:600">3 5 + 6 2 / 1 - - 4 -</td><td>pop hết</td></tr>
+    </table>
+  </div>
+
+  <h2 id="p2-postfix">4. Tính giá trị Postfix</h2>
+  <div class="info-box tip"><strong>Thuật toán</strong>Số → push. Toán tử → pop 2, tính, push lại.</div>
+  <h3>Trace tay: <code>8 2 3 * - 5 4 + * 3 /</code></h3>
+  <div class="tbl-wrap">
+    <table class="trace-table">
+      <tr><th>Ký tự</th><th>Stack</th><th>Thao tác</th></tr>
+      <tr><td>8</td><td>8</td><td>push 8</td></tr>
+      <tr><td>2</td><td>8 2</td><td>push 2</td></tr>
+      <tr><td>3</td><td>8 2 3</td><td>push 3</td></tr>
+      <tr><td>*</td><td>8 6</td><td>pop 3,2 → 2×3=6</td></tr>
+      <tr><td>-</td><td>2</td><td>pop 6,8 → 8-6=2</td></tr>
+      <tr><td>5</td><td>2 5</td><td>push 5</td></tr>
+      <tr><td>4</td><td>2 5 4</td><td>push 4</td></tr>
+      <tr><td>+</td><td>2 9</td><td>pop 4,5 → 5+4=9</td></tr>
+      <tr><td>*</td><td>18</td><td>pop 9,2 → 2×9=18</td></tr>
+      <tr><td>3</td><td>18 3</td><td>push 3</td></tr>
+      <tr><td>/</td><td style="color:var(--green);font-weight:600">6</td><td>pop 3,18 → 18/3=6 ✓</td></tr>
+    </table>
+  </div>
+
+  <h2 id="p2-bracket">5. Kiểm tra ngoặc hợp lệ</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="tp">bool</span> <span class="fn">kiemtrangoac</span>(string s) {
+    <span class="tp">Stack</span> st; <span class="fn">khoitaoStack</span>(st);
+    <span class="kw">for</span> (<span class="tp">char</span> c : s) {
+        <span class="kw">if</span> (c == <span class="st">'('</span> || c == <span class="st">'['</span> || c == <span class="st">'{'</span>)
+            <span class="fn">push</span>(st, c);
+        <span class="kw">else if</span> (c == <span class="st">')'</span> || c == <span class="st">']'</span> || c == <span class="st">'}'</span>) {
+            <span class="kw">if</span> (<span class="fn">rong</span>(st)) <span class="kw">return false</span>;
+            <span class="tp">char</span> top = <span class="fn">peek</span>(st);
+            <span class="kw">if</span> ((c == <span class="st">')'</span> && top == <span class="st">'('</span>) ||
+                (c == <span class="st">']'</span> && top == <span class="st">'['</span>) ||
+                (c == <span class="st">'}'</span> && top == <span class="st">'{'</span>))
+                <span class="fn">pop</span>(st);
+            <span class="kw">else return false</span>;
+        }
+    }
+    <span class="kw">return</span> <span class="fn">rong</span>(st);
+}</code></pre>
+  </div>
+  <h3>Trace: <code>()[()(())]</code></h3>
+  <div class="tbl-wrap">
+    <table class="trace-table">
+      <tr><th>Ký tự</th><th>Stack</th><th>Kết quả</th></tr>
+      <tr><td>(</td><td>(</td><td>push</td></tr>
+      <tr><td>)</td><td></td><td>khớp → pop</td></tr>
+      <tr><td>[</td><td>[</td><td>push</td></tr>
+      <tr><td>(</td><td>[ (</td><td>push</td></tr>
+      <tr><td>)</td><td>[</td><td>khớp → pop</td></tr>
+      <tr><td>(</td><td>[ (</td><td>push</td></tr>
+      <tr><td>(</td><td>[ ( (</td><td>push</td></tr>
+      <tr><td>)</td><td>[ (</td><td>khớp → pop</td></tr>
+      <tr><td>)</td><td>[</td><td>khớp → pop</td></tr>
+      <tr><td>]</td><td style="color:var(--green)"></td><td>khớp → pop → Stack rỗng ✓</td></tr>
+    </table>
+  </div>
+
+  <h2 id="p2-misc">6. Các bài còn lại</h2>
+  <div class="accordion">
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Chuyển cơ số — thập phân sang hệ a</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">void</span> <span class="fn">chuyencosobat</span>(<span class="tp">int</span> n, <span class="tp">int</span> a) {
+    <span class="tp">Stack</span> s; <span class="fn">khoitaoStack</span>(s);
+    <span class="kw">while</span> (n > <span class="nm">0</span>) {
+        <span class="fn">push</span>(s, n % a);
+        n /= a;
+    }
+    <span class="kw">while</span> (!<span class="fn">rong</span>(s))
+        cout << <span class="fn">pop</span>(s);
+    cout << endl;
+}
+<span class="cm">// VD: 13 → hệ 2: push 1,0,1,1 → pop ra: 1101</span></code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Queue trace — mô phỏng Front/Rear</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="tbl-wrap">
+          <table class="trace-table">
+            <tr><th>Thao tác</th><th>Front</th><th>Rear</th><th>Mảng</th></tr>
+            <tr><td>Khởi tạo</td><td>-1</td><td>-1</td><td>[]</td></tr>
+            <tr><td>Enqueue(10)</td><td>0</td><td>0</td><td>[10]</td></tr>
+            <tr><td>Enqueue(20)</td><td>0</td><td>1</td><td>[10,20]</td></tr>
+            <tr><td>Enqueue(30)</td><td>0</td><td>2</td><td>[10,20,30]</td></tr>
+            <tr><td>Dequeue → 10</td><td>1</td><td>2</td><td>[_,20,30]</td></tr>
+            <tr><td>Enqueue(40)</td><td>1</td><td>3</td><td>[_,20,30,40]</td></tr>
+            <tr><td>Dequeue → 20</td><td>2</td><td>3</td><td>[_,_,30,40]</td></tr>
+          </table>
+        </div>
+        <div class="info-box warn"><strong>Nhớ khi thi</strong>Front tăng khi Dequeue. Rear tăng khi Enqueue. Front = Rear = -1 → queue rỗng.</div>
+      </div>
+    </div>
+  </div>
+<!-- P2 EXTRA: Trace bài 2, bài 4, ứng dụng thực tế -->
+<h2 id="p2-trace2">6. Trace Infix→Postfix bài 2</h2>
+<h3>Biểu thức: <code>(2 * 3 - 4 + 2) / (4 - 2)</code></h3>
+<div class="tbl-wrap">
+<table class="trace-table">
+<tr><th>Ký tự</th><th>Stack</th><th>Output</th><th>Hành động</th></tr>
+<tr><td>(</td><td>(</td><td></td><td>push (</td></tr>
+<tr><td>2</td><td>(</td><td>2</td><td>in ra</td></tr>
+<tr><td>*</td><td>( *</td><td>2</td><td>push *</td></tr>
+<tr><td>3</td><td>( *</td><td>2 3</td><td>in ra</td></tr>
+<tr><td>-</td><td>( -</td><td>2 3 *</td><td>pop * (ưu tiên ≥), push -</td></tr>
+<tr><td>4</td><td>( -</td><td>2 3 * 4</td><td>in ra</td></tr>
+<tr><td>+</td><td>( +</td><td>2 3 * 4 -</td><td>pop - (ưu tiên ≥), push +</td></tr>
+<tr><td>2</td><td>( +</td><td>2 3 * 4 - 2</td><td>in ra</td></tr>
+<tr><td>)</td><td></td><td>2 3 * 4 - 2 +</td><td>pop đến (</td></tr>
+<tr><td>/</td><td>/</td><td>2 3 * 4 - 2 +</td><td>push /</td></tr>
+<tr><td>(</td><td>/ (</td><td>2 3 * 4 - 2 +</td><td>push (</td></tr>
+<tr><td>4</td><td>/ (</td><td>2 3 * 4 - 2 + 4</td><td>in ra</td></tr>
+<tr><td>-</td><td>/ ( -</td><td>2 3 * 4 - 2 + 4</td><td>push -</td></tr>
+<tr><td>2</td><td>/ ( -</td><td>2 3 * 4 - 2 + 4 2</td><td>in ra</td></tr>
+<tr><td>)</td><td>/</td><td>2 3 * 4 - 2 + 4 2 -</td><td>pop đến (</td></tr>
+<tr><td>hết</td><td></td><td style="color:#3fb950;font-weight:600">2 3 * 4 - 2 + 4 2 - /</td><td>pop hết</td></tr>
+</table>
+</div>
+
+<h2 id="p2-trace4">7. Trace tính Postfix bài 4</h2>
+<h3>Biểu thức: <code>1 5 * 3 - 2 3 + * 5 /</code></h3>
+<div class="tbl-wrap">
+<table class="trace-table">
+<tr><th>Ký tự</th><th>Stack</th><th>Thao tác</th><th>Tính</th></tr>
+<tr><td>1</td><td>1</td><td>push 1</td><td></td></tr>
+<tr><td>5</td><td>1 5</td><td>push 5</td><td></td></tr>
+<tr><td>*</td><td>5</td><td>pop 5,1 → push</td><td>1×5=5</td></tr>
+<tr><td>3</td><td>5 3</td><td>push 3</td><td></td></tr>
+<tr><td>-</td><td>2</td><td>pop 3,5 → push</td><td>5-3=2</td></tr>
+<tr><td>2</td><td>2 2</td><td>push 2</td><td></td></tr>
+<tr><td>3</td><td>2 2 3</td><td>push 3</td><td></td></tr>
+<tr><td>+</td><td>2 5</td><td>pop 3,2 → push</td><td>2+3=5</td></tr>
+<tr><td>*</td><td>10</td><td>pop 5,2 → push</td><td>2×5=10</td></tr>
+<tr><td>5</td><td>10 5</td><td>push 5</td><td></td></tr>
+<tr><td>/</td><td style="color:#3fb950;font-weight:600">2</td><td>pop 5,10 → push</td><td>10/5=2 ✓</td></tr>
+</table>
+</div>
+
+<h2 id="p2-thucte">8. Ứng dụng thực tế</h2>
+<div class="accordion">
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Stack Overflow — Đệ quy không có điểm dừng</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Mỗi lần gọi hàm, hệ điều hành push một <strong>stack frame</strong> (chứa địa chỉ trả về, biến cục bộ) vào <strong>Call Stack</strong>. Khi hàm đệ quy không có điều kiện dừng, Call Stack bị push liên tục đến khi đầy → <strong>Stack Overflow</strong>.</p>
+<div class="info-box danger"><strong>Ví dụ</strong>void f() { f(); } // push mãi không pop → crash</div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Undo/Redo (Ctrl+Z / Ctrl+Y) — Stack</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Mỗi thao tác chỉnh sửa được push vào <strong>Stack_Back</strong>. Ctrl+Z → pop từ Stack_Back, push vào <strong>Stack_Forward</strong>. Ctrl+Y → pop từ Stack_Forward, push lại Stack_Back.</p>
+<div class="tbl-wrap"><table><tr><th>Thao tác</th><th>Stack_Back</th><th>Stack_Forward</th></tr>
+<tr><td>Gõ "A"</td><td>[A]</td><td>[]</td></tr>
+<tr><td>Gõ "B"</td><td>[A,B]</td><td>[]</td></tr>
+<tr><td>Ctrl+Z</td><td>[A]</td><td>[B]</td></tr>
+<tr><td>Ctrl+Y</td><td>[A,B]</td><td>[]</td></tr>
+</table></div>
+<p>Phải dùng Stack (LIFO) vì cần hoàn tác theo thứ tự <strong>ngược lại</strong> với thứ tự thực hiện.</p>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Print Spooler — Queue</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Nhiều nhân viên gửi lệnh in cùng lúc. Máy in chỉ xử lý 1 lệnh tại thời điểm. Hệ thống dùng <strong>Queue (FIFO)</strong> để đảm bảo lệnh in nào đến trước được in trước — công bằng và đúng thứ tự.</p>
+<div class="info-box tip"><strong>Nếu dùng Stack</strong>Lệnh in đến sau sẽ được in trước (LIFO) → không công bằng → không thể dùng Stack.</div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>BFS dùng Queue — DFS dùng Stack</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="grid-2">
+<div>
+<div class="info-box tip"><strong>BFS — Queue (FIFO)</strong>Duyệt theo từng lớp (level). Node hàng xóm được thêm vào cuối Queue → xử lý theo thứ tự gần nhất trước. Dùng tìm đường đi ngắn nhất, bạn bè chung mạng xã hội.</div>
+</div>
+<div>
+<div class="info-box success"><strong>DFS — Stack (LIFO)</strong>Đi sâu theo một nhánh đến hết rồi mới quay lại. Node con được push vào Stack → pop ra xử lý tiếp. Dùng tìm đường trong mê cung, duyệt cây.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Keyboard Buffer — Queue</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Khi gõ bàn phím nhanh, CPU chưa xử lý kịp. Các ký tự được lưu vào <strong>Queue (FIFO)</strong> → xuất hiện đúng thứ tự gõ trên màn hình.</p>
+<div class="info-box danger"><strong>Nếu dùng Stack</strong>Gõ "CTDL" → màn hình hiện "LDTC" (ngược chiều) → không thể dùng Stack.</div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Máy tính Casio — Stack</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Máy tính bỏ túi chuyển biểu thức Infix → Postfix bằng Stack, rồi tính kết quả Postfix bằng Stack thứ hai. Nhờ đó xử lý đúng độ ưu tiên <code>*</code> <code>/</code> trước <code>+</code> <code>-</code> và ngoặc.</p>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Trình biên dịch C++ — Stack kiểm tra ngoặc</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Compiler dùng Stack để kiểm tra tính hợp lệ của <code>{ }</code> trong code. Gặp <code>{</code> → push. Gặp <code>}</code> → pop và check. Nếu Stack không rỗng sau khi đọc hết file → báo lỗi "missing closing brace".</p>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Back/Forward Browser — 2 Stack</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table><tr><th>Thao tác</th><th>Stack_Back</th><th>Stack_Forward</th></tr>
+<tr><td>Vào google.com</td><td>[google]</td><td>[]</td></tr>
+<tr><td>Vào facebook.com</td><td>[google, fb]</td><td>[]</td></tr>
+<tr><td>Vào youtube.com</td><td>[google, fb, yt]</td><td>[]</td></tr>
+<tr><td>Nhấn Back</td><td>[google, fb]</td><td>[yt]</td></tr>
+<tr><td>Nhấn Back</td><td>[google]</td><td>[yt, fb]</td></tr>
+<tr><td>Nhấn Forward</td><td>[google, fb]</td><td>[yt]</td></tr>
+</table></div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Message Queue — RabbitMQ</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Hệ thống tin nhắn (RabbitMQ, Kafka) dùng Queue để phân phối message giữa producer và consumer. Producer enqueue message, consumer dequeue và xử lý theo đúng thứ tự nhận — đảm bảo không mất dữ liệu dù consumer xử lý chậm hơn producer.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== P3: AVL ===== -->
+<div class="section-page" id="page-p3">
+  <div class="page-title">Cây AVL <span class="badge badge-orange">PHẦN 3</span></div>
+  <p class="page-desc">Cây nhị phân tự cân bằng — 4 phép xoay + thêm/xóa + 33 hàm đệ quy.</p>
+
+  <h2 id="p3-kn">1. Khái niệm cơ bản</h2>
+  <div class="formula">BF(node) = height(left) - height(right)</div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>BF</th><th>Trạng thái</th><th>Hành động</th></tr>
+      <tr><td style="font-family:var(--mono)">-1, 0, 1</td><td><span class="badge badge-green">Cân bằng</span></td><td>Không làm gì</td></tr>
+      <tr><td style="font-family:var(--mono)">+2</td><td><span class="badge badge-red">Lệch trái</span></td><td>Xoay LL hoặc LR</td></tr>
+      <tr><td style="font-family:var(--mono)">-2</td><td><span class="badge badge-red">Lệch phải</span></td><td>Xoay RR hoặc RL</td></tr>
+    </table>
+  </div>
+  <div class="info-box tip"><strong>Quy ước chiều cao</strong>Node null → height = -1. Node lá → height = 0.</div>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="kw">struct</span> <span class="tp">AVLNode</span> {
+    <span class="tp">int</span> data;
+    <span class="tp">AVLNode</span> *left, *right;
+    <span class="tp">int</span> height;
+};
+
+<span class="tp">int</span> <span class="fn">height</span>(<span class="tp">AVLNode</span>* p) { <span class="kw">return</span> p ? p->height : -<span class="nm">1</span>; }
+<span class="tp">int</span> <span class="fn">BF</span>(<span class="tp">AVLNode</span>* p) { <span class="kw">return</span> <span class="fn">height</span>(p->left) - <span class="fn">height</span>(p->right); }
+
+<span class="kw">void</span> <span class="fn">capnhatH</span>(<span class="tp">AVLNode</span>* p) {
+    p->height = <span class="nm">1</span> + max(<span class="fn">height</span>(p->left), <span class="fn">height</span>(p->right));
+}</code></pre>
+  </div>
+
+  <h2 id="p3-rotate">2. 4 Phép xoay — TRỌNG TÂM</h2>
+
+  <div class="info-box success"><strong>Cách nhận dạng nhanh</strong>BF = +2 → lệch trái. Nhìn tiếp BF con trái: ≥ 0 → LL, &lt; 0 → LR. BF = -2 → lệch phải. BF con phải: ≤ 0 → RR, > 0 → RL.</div>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="badge badge-blue" style="margin-right:8px">LL</span>Xoay phải — Right Rotation</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="grid-2">
+          <div>
+            <div class="tree-visual">    z            y
+   /    xoay →   / \
+  y              x   z
+ /
+x</div>
+          </div>
+          <div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">copy</button>
+              <pre><code><span class="tp">AVLNode</span>* <span class="fn">xoayphai</span>(<span class="tp">AVLNode</span>* z) {
+    <span class="tp">AVLNode</span>* y = z->left;
+    <span class="tp">AVLNode</span>* T = y->right;
+    y->right = z;
+    z->left = T;
+    <span class="fn">capnhatH</span>(z);
+    <span class="fn">capnhatH</span>(y);
+    <span class="kw">return</span> y;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="badge badge-green" style="margin-right:8px">RR</span>Xoay trái — Left Rotation</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="grid-2">
+          <div>
+            <div class="tree-visual">z              y
+ \    xoay →   / \
+  y            z   x
+   \
+    x</div>
+          </div>
+          <div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">copy</button>
+              <pre><code><span class="tp">AVLNode</span>* <span class="fn">xoaytrai</span>(<span class="tp">AVLNode</span>* z) {
+    <span class="tp">AVLNode</span>* y = z->right;
+    <span class="tp">AVLNode</span>* T = y->left;
+    y->left = z;
+    z->right = T;
+    <span class="fn">capnhatH</span>(z);
+    <span class="fn">capnhatH</span>(y);
+    <span class="kw">return</span> y;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="badge badge-orange" style="margin-right:8px">LR</span>Xoay trái-phải — Left Right</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="tree-visual">  z         z          x
+ /    →    /    →    / \
+y          x          y   z
+ \        /
+  x      y</div>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">AVLNode</span>* <span class="fn">xoayLR</span>(<span class="tp">AVLNode</span>* z) {
+    z->left = <span class="fn">xoaytrai</span>(z->left); <span class="cm">// bước 1: xoay trái con</span>
+    <span class="kw">return</span> <span class="fn">xoayphai</span>(z);            <span class="cm">// bước 2: xoay phải gốc</span>
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span><span class="badge badge-purple" style="margin-right:8px">RL</span>Xoay phải-trái — Right Left</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="tree-visual">z           z              x
+ \    →      \    →      / \
+  y            x          z   y
+ /              \
+x                y</div>
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">AVLNode</span>* <span class="fn">xoayRL</span>(<span class="tp">AVLNode</span>* z) {
+    z->right = <span class="fn">xoayphai</span>(z->right); <span class="cm">// bước 1: xoay phải con</span>
+    <span class="kw">return</span> <span class="fn">xoaytrai</span>(z);              <span class="cm">// bước 2: xoay trái gốc</span>
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="p3-insert">3. Thêm Node + Hàm cân bằng</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="tp">AVLNode</span>* <span class="fn">canBang</span>(<span class="tp">AVLNode</span>* p) {
+    <span class="fn">capnhatH</span>(p);
+    <span class="tp">int</span> bf = <span class="fn">BF</span>(p);
+    <span class="kw">if</span> (bf == <span class="nm">2</span>  && <span class="fn">BF</span>(p->left)  >= <span class="nm">0</span>) <span class="kw">return</span> <span class="fn">xoayphai</span>(p); <span class="cm">// LL</span>
+    <span class="kw">if</span> (bf == <span class="nm">2</span>  && <span class="fn">BF</span>(p->left)  <  <span class="nm">0</span>) <span class="kw">return</span> <span class="fn">xoayLR</span>(p);    <span class="cm">// LR</span>
+    <span class="kw">if</span> (bf == -<span class="nm">2</span> && <span class="fn">BF</span>(p->right) <= <span class="nm">0</span>) <span class="kw">return</span> <span class="fn">xoaytrai</span>(p); <span class="cm">// RR</span>
+    <span class="kw">if</span> (bf == -<span class="nm">2</span> && <span class="fn">BF</span>(p->right) >  <span class="nm">0</span>) <span class="kw">return</span> <span class="fn">xoayRL</span>(p);    <span class="cm">// RL</span>
+    <span class="kw">return</span> p;
+}
+
+<span class="tp">AVLNode</span>* <span class="fn">them</span>(<span class="tp">AVLNode</span>* root, <span class="tp">int</span> x) {
+    <span class="kw">if</span> (root == <span class="kw">nullptr</span>) {
+        <span class="tp">AVLNode</span>* p = <span class="kw">new</span> <span class="tp">AVLNode</span>{x, <span class="kw">nullptr</span>, <span class="kw">nullptr</span>, <span class="nm">0</span>};
+        <span class="kw">return</span> p;
+    }
+    <span class="kw">if</span> (x < root->data) root->left  = <span class="fn">them</span>(root->left,  x);
+    <span class="kw">else if</span> (x > root->data) root->right = <span class="fn">them</span>(root->right, x);
+    <span class="kw">return</span> <span class="fn">canBang</span>(root);
+}</code></pre>
+  </div>
+
+  <h2 id="p3-delete">4. Xóa Node</h2>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Trường hợp</th><th>Xử lý</th></tr>
+      <tr><td>Node lá</td><td>Xóa thẳng, trả nullptr</td></tr>
+      <tr><td>Có 1 con</td><td>Con thay thế vị trí node</td></tr>
+      <tr><td>Có 2 con</td><td>Tìm inorder successor (min cây con phải), copy data, xóa node đó</td></tr>
+    </table>
+  </div>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">copy</button>
+    <pre><code><span class="tp">AVLNode</span>* <span class="fn">timMin</span>(<span class="tp">AVLNode</span>* p) {
+    <span class="kw">while</span> (p->left) p = p->left;
+    <span class="kw">return</span> p;
+}
+
+<span class="tp">AVLNode</span>* <span class="fn">xoa</span>(<span class="tp">AVLNode</span>* root, <span class="tp">int</span> x) {
+    <span class="kw">if</span> (!root) <span class="kw">return nullptr</span>;
+    <span class="kw">if</span> (x < root->data) root->left  = <span class="fn">xoa</span>(root->left,  x);
+    <span class="kw">else if</span> (x > root->data) root->right = <span class="fn">xoa</span>(root->right, x);
+    <span class="kw">else</span> {
+        <span class="kw">if</span> (!root->left)  { <span class="tp">AVLNode</span>* t = root->right; <span class="kw">delete</span> root; <span class="kw">return</span> t; }
+        <span class="kw">if</span> (!root->right) { <span class="tp">AVLNode</span>* t = root->left;  <span class="kw">delete</span> root; <span class="kw">return</span> t; }
+        <span class="tp">AVLNode</span>* suc = <span class="fn">timMin</span>(root->right);
+        root->data  = suc->data;
+        root->right = <span class="fn">xoa</span>(root->right, suc->data);
+    }
+    <span class="kw">return</span> <span class="fn">canBang</span>(root);
+}</code></pre>
+  </div>
+
+  <h2 id="p3-rec">5. Các hàm đệ quy — 8 Pattern cốt lõi</h2>
+  <div class="accordion">
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 1 — Đếm / Tổng</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">int</span> <span class="fn">demnut</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">return</span> <span class="nm">1</span> + <span class="fn">demnut</span>(r->left) + <span class="fn">demnut</span>(r->right);
+}
+
+<span class="tp">int</span> <span class="fn">tongnut</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">return</span> r->data + <span class="fn">tongnut</span>(r->left) + <span class="fn">tongnut</span>(r->right);
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 2 — Chiều cao</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">int</span> <span class="fn">chieucao</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> -<span class="nm">1</span>;
+    <span class="kw">return</span> <span class="nm">1</span> + max(<span class="fn">chieucao</span>(r->left), <span class="fn">chieucao</span>(r->right));
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 3 — Đếm lá / không lá / 1 con / 2 con</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">int</span> <span class="fn">demla</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">if</span> (!r->left && !r->right) <span class="kw">return</span> <span class="nm">1</span>;
+    <span class="kw">return</span> <span class="fn">demla</span>(r->left) + <span class="fn">demla</span>(r->right);
+}
+
+<span class="tp">int</span> <span class="fn">dem1con</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="tp">int</span> co1 = (!r->left) != (!r->right) ? <span class="nm">1</span> : <span class="nm">0</span>;
+    <span class="kw">return</span> co1 + <span class="fn">dem1con</span>(r->left) + <span class="fn">dem1con</span>(r->right);
+}
+
+<span class="tp">int</span> <span class="fn">dem2con</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="tp">int</span> co2 = (r->left && r->right) ? <span class="nm">1</span> : <span class="nm">0</span>;
+    <span class="kw">return</span> co2 + <span class="fn">dem2con</span>(r->left) + <span class="fn">dem2con</span>(r->right);
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 4 — Tìm Max / Min</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">int</span> <span class="fn">timMax</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> INT_MIN;
+    <span class="kw">return</span> max({r->data, <span class="fn">timMax</span>(r->left), <span class="fn">timMax</span>(r->right)});
+}
+<span class="tp">int</span> <span class="fn">timMin</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> INT_MAX;
+    <span class="kw">return</span> min({r->data, <span class="fn">timMin</span>(r->left), <span class="fn">timMin</span>(r->right)});
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 5 — Xử lý theo mức k</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">void</span> <span class="fn">xuatmuck</span>(<span class="tp">AVLNode</span>* r, <span class="tp">int</span> k) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span>;
+    <span class="kw">if</span> (k == <span class="nm">0</span>) { cout << r->data << <span class="st">" "</span>; <span class="kw">return</span>; }
+    <span class="fn">xuatmuck</span>(r->left,  k-<span class="nm">1</span>);
+    <span class="fn">xuatmuck</span>(r->right, k-<span class="nm">1</span>);
+}
+<span class="tp">int</span> <span class="fn">demmuck</span>(<span class="tp">AVLNode</span>* r, <span class="tp">int</span> k) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">if</span> (k == <span class="nm">0</span>) <span class="kw">return</span> <span class="nm">1</span>;
+    <span class="kw">return</span> <span class="fn">demmuck</span>(r->left, k-<span class="nm">1</span>) + <span class="fn">demmuck</span>(r->right, k-<span class="nm">1</span>);
+}
+<span class="tp">int</span> <span class="fn">tongmuck</span>(<span class="tp">AVLNode</span>* r, <span class="tp">int</span> k) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">if</span> (k == <span class="nm">0</span>) <span class="kw">return</span> r->data;
+    <span class="kw">return</span> <span class="fn">tongmuck</span>(r->left, k-<span class="nm">1</span>) + <span class="fn">tongmuck</span>(r->right, k-<span class="nm">1</span>);
+}</code></pre>
+        </div>
+        <div class="info-box tip"><strong>Mẹo mức k</strong>Mọi hàm theo mức k: if k==0 → xử lý node này. Else → gọi đệ quy k-1.</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 6 — Kiểm tra đặc biệt (nguyên tố, hoàn thiện, chính phương)</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">bool</span> <span class="fn">languyento</span>(<span class="tp">int</span> n) {
+    <span class="kw">if</span> (n < <span class="nm">2</span>) <span class="kw">return false</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">2</span>; i*i <= n; i++)
+        <span class="kw">if</span> (n%i == <span class="nm">0</span>) <span class="kw">return false</span>;
+    <span class="kw">return true</span>;
+}
+<span class="tp">bool</span> <span class="fn">lashoanchinh</span>(<span class="tp">int</span> n) { <span class="cm">// 6, 28, 496</span>
+    <span class="kw">if</span> (n < <span class="nm">1</span>) <span class="kw">return false</span>;
+    <span class="tp">int</span> t = <span class="nm">0</span>;
+    <span class="kw">for</span> (<span class="tp">int</span> i = <span class="nm">1</span>; i < n; i++) <span class="kw">if</span> (n%i==<span class="nm">0</span>) t+=i;
+    <span class="kw">return</span> t == n;
+}
+<span class="tp">bool</span> <span class="fn">lascphuong</span>(<span class="tp">int</span> n) {
+    <span class="kw">if</span> (n < <span class="nm">0</span>) <span class="kw">return false</span>;
+    <span class="tp">int</span> s = (<span class="tp">int</span>)sqrt((<span class="tp">double</span>)n);
+    <span class="kw">return</span> s*s == n;
+}
+<span class="tp">int</span> <span class="fn">demnguyento</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="nm">0</span>;
+    <span class="kw">return</span> (<span class="fn">languyento</span>(r->data) ? <span class="nm">1</span>:<span class="nm">0</span>)
+         + <span class="fn">demnguyento</span>(r->left) + <span class="fn">demnguyento</span>(r->right);
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 7 — Duyệt LNR (tăng dần)</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="kw">void</span> <span class="fn">LNR</span>(<span class="tp">AVLNode</span>* r) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span>;
+    <span class="fn">LNR</span>(r->left);
+    cout << r->data << <span class="st">" "</span>;
+    <span class="fn">LNR</span>(r->right);
+}
+<span class="cm">// NLR = preorder, LRN = postorder</span></code></pre>
+        </div>
+        <div class="info-box success"><strong>Tính chất quan trọng</strong>LNR trên BST/AVL luôn in ra theo thứ tự tăng dần!</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>Pattern 8 — Tìm gần nhất / xa nhất với x</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="code-block">
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          <pre><code><span class="tp">int</span> <span class="fn">gangannhat</span>(<span class="tp">AVLNode</span>* r, <span class="tp">int</span> x) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> -<span class="nm">1</span>;
+    <span class="tp">int</span> kq = r->data, minD = abs(r->data - x);
+    <span class="tp">int</span> tKQ = <span class="fn">gangannhat</span>(r->left, x);
+    <span class="kw">if</span> (tKQ != -<span class="nm">1</span> && abs(tKQ-x) < minD) { minD = abs(tKQ-x); kq = tKQ; }
+    <span class="tp">int</span> pKQ = <span class="fn">gangannhat</span>(r->right, x);
+    <span class="kw">if</span> (pKQ != -<span class="nm">1</span> && abs(pKQ-x) < minD) kq = pKQ;
+    <span class="kw">return</span> kq;
+}
+<span class="tp">int</span> <span class="fn">xanhat</span>(<span class="tp">AVLNode</span>* r, <span class="tp">int</span> x) {
+    <span class="kw">if</span> (!r) <span class="kw">return</span> -<span class="nm">1</span>;
+    <span class="tp">int</span> kq = r->data, maxD = abs(r->data - x);
+    <span class="tp">int</span> tKQ = <span class="fn">xanhat</span>(r->left, x);
+    <span class="kw">if</span> (tKQ != -<span class="nm">1</span> && abs(tKQ-x) > maxD) { maxD = abs(tKQ-x); kq = tKQ; }
+    <span class="tp">int</span> pKQ = <span class="fn">xanhat</span>(r->right, x);
+    <span class="kw">if</span> (pKQ != -<span class="nm">1</span> && abs(pKQ-x) > maxD) kq = pKQ;
+    <span class="kw">return</span> kq;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end accordion p3-rec -->
+<!-- P3 EXTRA: 3 bộ số trace AVL đầy đủ -->
+<h2 id="p3-trace1">6. Trace AVL — Bộ số 1</h2>
+<div class="info-box tip"><strong>Đề bài</strong>Thêm: 50, 75, 85, 30, 10, 45, 80, 98. Xóa: 50, 30.</div>
+<div class="accordion">
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Xem trace từng bước ▸</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<h4>Thêm 50, 75</h4>
+<div class="tree-visual">  50(h=1,BF=-1)
+    \
+    75(h=0)</div>
+<h4>Thêm 85 → BF(50)=-2, BF(75)=-1 → RR → Xoay trái tại 50</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+50
+  \
+  75
+    \
+    85</div></div>
+<div><div class="tree-visual">Sau RR:
+  75
+ /  \
+50   85</div></div>
+</div>
+<h4>Thêm 30, 10 → BF(75)=1, BF(50)=1 → chưa mất cân bằng sau 30</h4>
+<div class="tree-visual">    75(BF=1)
+   /  \
+  50   85
+  /
+ 30</div>
+<h4>Thêm 10 → BF(50)=2, BF(30)=1 → LL → Xoay phải tại 50</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+    75
+   /  \
+  50   85
+  /
+ 30
+ /
+10</div></div>
+<div><div class="tree-visual">Sau LL (xoay phải tại 50):
+    75
+   /  \
+  30   85
+ /  \
+10   50</div></div>
+</div>
+<h4>Thêm 45 → BF(30)=-1, BF(75)=1 → ổn</h4>
+<div class="tree-visual">      75(BF=1)
+     /  \
+   30    85
+  /  \
+10    50
+     /
+    45</div>
+<h4>Thêm 80 → BF(85)=1, BF(75)=0 → ổn</h4>
+<div class="tree-visual">      75(BF=0)
+     /  \
+   30    85
+  /  \   /
+10   50 80
+    /
+   45</div>
+<h4>Thêm 98 → BF(85)=-1, BF(75)=-1 → ổn</h4>
+<div class="tree-visual">        75(BF=0)
+       /  \
+     30    85(BF=-1)
+    /  \  /  \
+   10  50 80  98
+      /
+     45</div>
+<div class="info-box success"><strong>Cây hoàn chỉnh sau khi thêm xong</strong>Tất cả BF ∈ {-1,0,1} ✓</div>
+<h4>Xóa 50 (có 1 con trái = 45) → con 45 thay thế</h4>
+<div class="tree-visual">        75
+       /  \
+     30    85
+    /  \  /  \
+   10  45 80  98</div>
+<div class="info-box tip"><strong>Kiểm tra BF</strong>BF(30)=-1, BF(75)=0 → ổn, không cần xoay ✓</div>
+<h4>Xóa 30 (có 2 con: 10 và 45) → inorder successor = min(cây con phải) = 45</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+        75
+       /  \
+     30    85
+    /  \  /  \
+   10  45 80  98</div></div>
+<div><div class="tree-visual">Sau (copy 45→30, xóa node 45):
+        75
+       /  \
+     45    85
+    /     /  \
+   10    80   98</div></div>
+</div>
+<div class="info-box success"><strong>Kết quả cuối</strong>BF(45)=1, BF(75)=0 → cân bằng ✓</div>
+</div>
+</div>
+</div>
+
+<h2 id="p3-trace2">7. Trace AVL — Bộ số 2</h2>
+<div class="info-box tip"><strong>Đề bài</strong>Thêm: 15, 35, 26, 18, 22, 42, 10, 12, 5. Xóa: 15, 18.</div>
+<div class="accordion">
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Xem trace từng bước ▸</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<h4>Thêm 15, 35</h4>
+<div class="tree-visual">15(BF=-1)
+  \
+  35</div>
+<h4>Thêm 26 → BF(15)=-2, BF(35)=1 → RL → Xoay phải 35 rồi xoay trái 15</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+15
+  \
+  35
+  /
+ 26</div></div>
+<div><div class="tree-visual">Sau RL:
+  26
+ /  \
+15   35</div></div>
+</div>
+<h4>Thêm 18 → BF(15)=-1 → ổn</h4>
+<div class="tree-visual">  26
+ /  \
+15   35
+  \
+  18</div>
+<h4>Thêm 22 → BF(15)=-2, BF(18)=-1 → RR → Xoay trái tại 15</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+  26
+ /  \
+15   35
+  \
+  18
+    \
+    22</div></div>
+<div><div class="tree-visual">Sau RR tại 15:
+    26
+   /  \
+  18   35
+ /  \
+15   22</div></div>
+</div>
+<h4>Thêm 42, 10, 12 → cộng thêm từng bước</h4>
+<div class="tree-visual">Sau thêm 42:
+    26(BF=0)
+   /  \
+  18   35(BF=-1)
+ /  \    \
+15   22   42</div>
+<div class="tree-visual">Sau thêm 10:
+    26
+   /  \
+  18   35
+ /  \    \
+15   22   42
+/
+10</div>
+<h4>Thêm 12 → BF(15)=2, BF(10)=-1 → LR tại 15</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+  18
+ /
+15
+/
+10
+  \
+  12</div></div>
+<div><div class="tree-visual">Sau LR tại 15:
+  18
+ /
+12
+/ \
+10  15</div></div>
+</div>
+<div class="tree-visual">Toàn cây sau thêm 12:
+        26
+       /  \
+      18   35
+     /  \    \
+    12   22   42
+   /  \
+  10   15</div>
+<h4>Thêm 5 → BF(12)=2, BF(10)=1 → LL → Xoay phải tại 12</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+    12
+   /
+  10
+  /
+ 5</div></div>
+<div><div class="tree-visual">Sau LL:
+  10
+ /  \
+5    12</div></div>
+</div>
+<div class="tree-visual">Toàn cây sau thêm 5:
+         26
+        /  \
+       18   35
+      /  \    \
+     10   22   42
+    /  \
+   5    12
+          \
+          15</div>
+<h4>Xóa 15 (nút lá) → xóa thẳng</h4>
+<div class="tree-visual">         26
+        /  \
+       18   35
+      /  \    \
+     10   22   42
+    /  \
+   5    12</div>
+<h4>Xóa 18 (có 2 con) → inorder successor = min(cây con phải 22) = 22</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+    18
+   /  \
+  10   22</div></div>
+<div><div class="tree-visual">Sau (22 thay 18):
+    22
+   /
+  10
+ /  \
+5    12</div></div>
+</div>
+<div class="tree-visual">Toàn cây cuối:
+        26
+       /  \
+      22   35
+     /       \
+    10        42
+   /  \
+  5    12</div>
+<div class="info-box success"><strong>Kiểm tra BF</strong>BF(22)=2? → h(10)=2, h(35)=1 → BF(26) cần check lại. BF(22)=1, BF(26)=0 → ổn ✓</div>
+</div>
+</div>
+</div>
+
+<h2 id="p3-trace3">8. Trace AVL — Bộ số 3</h2>
+<div class="info-box tip"><strong>Đề bài</strong>Thêm: 30, 17, 22, 18, 20, 27, 23, 35, 32. Xóa: 22, 18.</div>
+<div class="accordion">
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Xem trace từng bước ▸</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<h4>Thêm 30, 17</h4>
+<div class="tree-visual">30(BF=1)
+/
+17</div>
+<h4>Thêm 22 → BF(30)=2, BF(17)=-1 → LR tại 30</h4>
+<div class="grid-2">
+<div><div class="tree-visual">Trước:
+30
+/
+17
+  \
+  22</div></div>
+<div><div class="tree-visual">Sau LR:
+  22
+ /  \
+17   30</div></div>
+</div>
+<h4>Thêm 18 → BF(17)=-1 → ổn</h4>
+<div class="tree-visual">  22
+ /  \
+17   30
+  \
+  18</div>
+<h4>Thêm 20 → BF(17)=-2, BF(18)=-1 → RR tại 17</h4>
+<div class="grid-2">
+<div><div class="tree-visual">  22
+ /
+17
+  \
+  18
+    \
+    20</div></div>
+<div><div class="tree-visual">  22
+ /
+18
+/ \
+17  20</div></div>
+</div>
+<h4>Thêm 27, 23 → BF(30)=1, BF(22)=0 → ổn sau 27; BF(30)=2, BF(27)=1 → LL tại 30</h4>
+<div class="tree-visual">Sau thêm 27:
+      22
+     /  \
+    18   30
+   /  \  /
+  17  20 27</div>
+<h4>Thêm 23 → BF(27)=1, BF(30)=2 → LL tại 30 → Xoay phải tại 30</h4>
+<div class="grid-2">
+<div><div class="tree-visual">  30
+  /
+ 27
+ /
+23</div></div>
+<div><div class="tree-visual">  27
+ /  \
+23   30</div></div>
+</div>
+<div class="tree-visual">Toàn cây:
+        22
+       /  \
+      18   27
+     /  \  /  \
+    17  20 23  30</div>
+<h4>Thêm 35 → BF(27)=-1 → ổn; Thêm 32 → BF(30)=1 → ổn</h4>
+<div class="tree-visual">Cây hoàn chỉnh:
+        22
+       /  \
+      18   27
+     /  \  /  \
+    17  20 23  30
+                  \
+                  35
+                  /
+                 32</div>
+<h4>Sau thêm 32 → BF(35)=1, BF(30)=-2 → RL tại 30</h4>
+<div class="grid-2">
+<div><div class="tree-visual">30
+  \
+  35
+  /
+ 32</div></div>
+<div><div class="tree-visual">  32
+ /  \
+30   35</div></div>
+</div>
+<div class="tree-visual">Toàn cây sau tất cả:
+          22
+         /  \
+        18   27
+       /  \  /  \
+      17  20 23  32
+                /  \
+               30   35</div>
+<h4>Xóa 22 (có 2 con) → inorder successor = min(cây con phải) = 23</h4>
+<div class="tree-visual">Sau xóa 22 (thay bằng 23):
+          23
+         /  \
+        18   27
+       /  \    \
+      17  20   32
+              /  \
+             30   35</div>
+<div class="info-box tip"><strong>BF(27)=-2 sau xóa 22!</strong>BF(32)=0 → RR → Xoay trái tại 27</div>
+<div class="grid-2">
+<div><div class="tree-visual">  27
+    \
+    32
+   /  \
+  30   35</div></div>
+<div><div class="tree-visual">   32
+  /  \
+ 27   35
+   \
+   30</div></div>
+</div>
+<div class="tree-visual">Toàn cây sau xóa 22:
+          23
+         /  \
+        18   32
+       /  \  /  \
+      17  20 27  35
+              \
+              30</div>
+<h4>Xóa 18 (có 2 con) → inorder successor = 20</h4>
+<div class="tree-visual">Kết quả cuối:
+          23
+         /  \
+        20   32
+       /    /  \
+      17   27   35
+              \
+              30</div>
+<div class="info-box success"><strong>Kiểm tra</strong>BF(20)=1, BF(23)=0, BF(32)=0 → cân bằng ✓</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- ===== P4: HASH TABLE ===== -->
+<div class="section-page" id="page-p4">
+  <div class="page-title">Bảng Băm <span class="badge badge-purple">PHẦN 4</span></div>
+  <p class="page-desc">4 kỹ thuật xử lý va chạm — tính tay ăn điểm + đủ 10 bài luyện tập.</p>
+  <div class="info-box success"><strong>Quy trình làm bài thi</strong>1. Xác định m. 2. Tính h(k). 3. Điền theo kỹ thuật. 4. Đánh dấu va chạm rõ ràng.</div>
+
+  <h2 id="p4-chaining">1. Chaining — Kết nối trực tiếp</h2>
+  <p>Mỗi ô là một danh sách liên kết. Va chạm → nối vào cuối list tại ô đó.</p>
+
+  <h2 id="p4-linear">2. Linear Probing — Dò tuyến tính</h2>
+  <div class="formula">index = (h(k) + i) mod m &nbsp;&nbsp; với i = 0, 1, 2...</div>
+  <div class="info-box warn"><strong>Nhược điểm</strong>Phân cụm (Primary Clustering) — các phần tử dồn vào 1 vùng liên tiếp.</div>
+
+  <h2 id="p4-coalesced">3. Coalesced — Kết nối hợp nhất</h2>
+  <p>Mỗi ô thêm cột next. Va chạm → tìm ô trống <strong>từ cuối lên</strong>, nối con trỏ.</p>
+  <div class="info-box warn"><strong>Hay nhầm khi thi</strong>Tìm ô trống từ CUỐI bảng lên. Con trỏ next gán ở phần tử CUỐI CHAIN hiện tại.</div>
+
+  <h2 id="p4-double">4. Double Hashing — Băm kép</h2>
+  <div class="formula">index = (h1(k) + i × h2(k)) mod m</div>
+  <div class="info-box success"><strong>Ưu điểm</strong>Bước nhảy khác nhau cho từng key → phân tán đều hơn, tránh phân cụm.</div>
+
+  <h2 id="p4-summary">5. So sánh 4 kỹ thuật</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Kỹ thuật</th><th>Cấu trúc</th><th>Xử lý va chạm</th><th>Nhớ khi thi</th></tr>
+    <tr><td><span class="badge badge-blue">Chaining</span></td><td>Mảng + list</td><td>Nối vào list</td><td>Vẽ mũi tên →</td></tr>
+    <tr><td><span class="badge badge-green">Linear Probing</span></td><td>Mảng</td><td>Dò ô kế tiếp</td><td>Quay vòng mod m</td></tr>
+    <tr><td><span class="badge badge-orange">Coalesced</span></td><td>Mảng + next</td><td>Tìm từ cuối, nối</td><td>Tìm từ CUỐI lên</td></tr>
+    <tr><td><span class="badge badge-purple">Double Hash</span></td><td>Mảng</td><td>Bước nhảy h2(k)</td><td>Tính h2 trước</td></tr>
+  </table></div>
+
+<!-- P4 FULL: Đủ 4 kỹ thuật + 10 bài tập đề cương -->
+<h2 id="p4-all10">6. Luyện 10 bài tập đề cương</h2>
+<div class="accordion">
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-blue">Bài 1</span> Chaining — h(k)=k mod 5 — chèn: 12,29,13,15,27,34,7</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>k mod 5</th><th>Va chạm?</th></tr>
+<tr><td>12</td><td>2</td><td>—</td></tr>
+<tr><td>29</td><td>4</td><td>—</td></tr>
+<tr><td>13</td><td>3</td><td>—</td></tr>
+<tr><td>15</td><td>0</td><td>—</td></tr>
+<tr><td>27</td><td>2</td><td style="color:#f0883e">⚡ 12</td></tr>
+<tr><td>34</td><td>4</td><td style="color:#f0883e">⚡ 29</td></tr>
+<tr><td>7</td><td>2</td><td style="color:#f0883e">⚡ 12,27</td></tr>
+</table></div>
+<div class="hash-table-visual">
+<div class="hash-row"><div class="hash-idx">0</div><div class="hash-cell filled">15</div></div>
+<div class="hash-row"><div class="hash-idx">1</div><div class="hash-cell">—</div></div>
+<div class="hash-row"><div class="hash-idx">2</div><div class="hash-cell filled">12</div><span class="hash-chain">→</span><span class="hash-node">27</span><span class="hash-chain">→</span><span class="hash-node">7</span></div>
+<div class="hash-row"><div class="hash-idx">3</div><div class="hash-cell filled">13</div></div>
+<div class="hash-row"><div class="hash-idx">4</div><div class="hash-cell filled">29</div><span class="hash-chain">→</span><span class="hash-node">34</span></div>
+</div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-green">Bài 2</span> Linear Probing — h(k)=k mod 7 — chèn: 10,17,24,3,31</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h(k)</th><th>Probe i=0</th><th>i=1</th><th>i=2</th><th>i=3</th><th>i=4</th><th>Đặt ô</th></tr>
+<tr><td>10</td><td>3</td><td>3✓</td><td></td><td></td><td></td><td></td><td>3</td></tr>
+<tr><td>17</td><td>3</td><td>3✗</td><td style="color:#f0883e">4✓</td><td></td><td></td><td></td><td>4</td></tr>
+<tr><td>24</td><td>3</td><td>3✗</td><td>4✗</td><td style="color:#f0883e">5✓</td><td></td><td></td><td>5</td></tr>
+<tr><td>3</td><td>3</td><td>3✗</td><td>4✗</td><td>5✗</td><td style="color:#f0883e">6✓</td><td></td><td>6</td></tr>
+<tr><td>31</td><td>3</td><td>3✗</td><td>4✗</td><td>5✗</td><td>6✗</td><td style="color:#f0883e">0✓(vòng)</td><td>0</td></tr>
+</table></div>
+<div class="hash-table-visual">
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">0</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">1</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">2</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">3</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">4</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">5</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">6</div>
+</div>
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell collision">31</div><div class="hash-cell">—</div><div class="hash-cell">—</div>
+<div class="hash-cell filled">10</div><div class="hash-cell filled">17</div><div class="hash-cell filled">24</div><div class="hash-cell filled">3</div>
+</div></div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-orange">Bài 3</span> Coalesced — h(k)=k mod 5 — chèn: 12,22,15,27,7</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h(k)</th><th>Hành động</th></tr>
+<tr><td>12</td><td>2</td><td>ô 2 trống → đặt vào</td></tr>
+<tr><td>22</td><td>2</td><td>ô 2 bị chiếm → tìm từ cuối: ô 4 trống → đặt 22 vào ô 4, ô 2.next=4</td></tr>
+<tr><td>15</td><td>0</td><td>ô 0 trống → đặt vào</td></tr>
+<tr><td>27</td><td>2</td><td>chain 2→4 đều chiếm → ô 3 trống → đặt 27 vào ô 3, ô 4.next=3</td></tr>
+<tr><td>7</td><td>2</td><td>chain 2→4→3 đều chiếm → ô 1 trống → đặt 7 vào ô 1, ô 3.next=1</td></tr>
+</table></div>
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>Ô</th><th>Giá trị</th><th>Next</th></tr>
+<tr><td>0</td><td style="color:#58a6ff">15</td><td>—</td></tr>
+<tr><td>1</td><td style="color:#f0883e">7</td><td>—</td></tr>
+<tr><td>2</td><td style="color:#f0883e">12</td><td>→ 4</td></tr>
+<tr><td>3</td><td style="color:#f0883e">27</td><td>→ 1</td></tr>
+<tr><td>4</td><td style="color:#f0883e">22</td><td>→ 3</td></tr>
+</table></div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-green">Bài 4</span> Linear Probing — h(k)=k mod 7 — chèn: 8,15,22,29,36</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h(k)</th><th>Probe</th><th>Đặt ô</th></tr>
+<tr><td>8</td><td>1</td><td>1✓</td><td>1</td></tr>
+<tr><td>15</td><td>1</td><td>1✗→<span style="color:#f0883e">2✓</span></td><td>2</td></tr>
+<tr><td>22</td><td>1</td><td>1✗→2✗→<span style="color:#f0883e">3✓</span></td><td>3</td></tr>
+<tr><td>29</td><td>1</td><td>1✗→2✗→3✗→<span style="color:#f0883e">4✓</span></td><td>4</td></tr>
+<tr><td>36</td><td>1</td><td>1✗→2✗→3✗→4✗→<span style="color:#f0883e">5✓</span></td><td>5</td></tr>
+</table></div>
+<div class="hash-table-visual">
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">0</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">1</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">2</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">3</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">4</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">5</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">6</div>
+</div>
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell">—</div>
+<div class="hash-cell filled">8</div><div class="hash-cell filled">15</div><div class="hash-cell filled">22</div>
+<div class="hash-cell filled">29</div><div class="hash-cell filled">36</div><div class="hash-cell">—</div>
+</div></div>
+<div class="info-box warn"><strong>Phân cụm thứ cấp</strong>Các phần tử đồng dư mod 7 = 1 dồn cục thành một khối liên tiếp. Đây là Primary Clustering.</div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-green">Bài 5</span> Linear Probing — h(k)=k mod 7 — chèn: 15,22,29,36,8</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="info-box tip"><strong>So sánh với bài 4</strong>Cùng 5 phần tử nhưng thứ tự chèn khác → kết quả bảng giống hệt bài 4! Vì tất cả đều ≡ 1 (mod 7).</div>
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h(k)</th><th>Probe</th><th>Đặt ô</th></tr>
+<tr><td>15</td><td>1</td><td>1✓</td><td>1</td></tr>
+<tr><td>22</td><td>1</td><td>1✗→<span style="color:#f0883e">2✓</span></td><td>2</td></tr>
+<tr><td>29</td><td>1</td><td>1✗→2✗→<span style="color:#f0883e">3✓</span></td><td>3</td></tr>
+<tr><td>36</td><td>1</td><td>1✗→2✗→3✗→<span style="color:#f0883e">4✓</span></td><td>4</td></tr>
+<tr><td>8</td><td>1</td><td>1✗→2✗→3✗→4✗→<span style="color:#f0883e">5✓</span></td><td>5</td></tr>
+</table></div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-orange">Bài 6</span> Coalesced — h(k)=k mod 5 — chèn: 12,18,24,30,6</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h(k)</th><th>Hành động</th></tr>
+<tr><td>12</td><td>2</td><td>ô 2 trống → đặt vào</td></tr>
+<tr><td>18</td><td>3</td><td>ô 3 trống → đặt vào</td></tr>
+<tr><td>24</td><td>4</td><td>ô 4 trống → đặt vào</td></tr>
+<tr><td>30</td><td>0</td><td>ô 0 trống → đặt vào</td></tr>
+<tr><td>6</td><td>1</td><td>ô 1 trống → đặt vào</td></tr>
+</table></div>
+<div class="info-box success"><strong>Không có va chạm!</strong>Tất cả 5 giá trị đều mod 5 khác nhau (0,1,2,3,4) → mỗi ô chiếm 1 slot riêng.</div>
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>Ô</th><th>Giá trị</th><th>Next</th></tr>
+<tr><td>0</td><td style="color:#58a6ff">30</td><td>—</td></tr>
+<tr><td>1</td><td style="color:#58a6ff">6</td><td>—</td></tr>
+<tr><td>2</td><td style="color:#58a6ff">12</td><td>—</td></tr>
+<tr><td>3</td><td style="color:#58a6ff">18</td><td>—</td></tr>
+<tr><td>4</td><td style="color:#58a6ff">24</td><td>—</td></tr>
+</table></div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-blue">Bài 7</span> Double Hashing — h1=k mod 7, h2=5-(k mod 5) — chèn: 10,17,24,31,38</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="formula">index = (h1(k) + i × h2(k)) mod 7</div>
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h1(k)</th><th>h2(k)=5-(k%5)</th><th>i=0</th><th>i=1</th><th>Đặt ô</th></tr>
+<tr><td>10</td><td>3</td><td>5-(0)=5</td><td>3✓</td><td></td><td>3</td></tr>
+<tr><td>17</td><td>3</td><td>5-(2)=3</td><td>3✗</td><td>(3+3)%7=6✓</td><td>6</td></tr>
+<tr><td>24</td><td>3</td><td>5-(4)=1</td><td>3✗</td><td>(3+1)%7=4✓</td><td>4</td></tr>
+<tr><td>31</td><td>3</td><td>5-(1)=4</td><td>3✗</td><td>(3+4)%7=0✓</td><td>0</td></tr>
+<tr><td>38</td><td>3</td><td>5-(3)=2</td><td>3✗</td><td>(3+2)%7=5✓</td><td>5</td></tr>
+</table></div>
+<div class="hash-table-visual">
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">0</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">1</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">2</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">3</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">4</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">5</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">6</div>
+</div>
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell collision">31</div><div class="hash-cell">—</div><div class="hash-cell">—</div>
+<div class="hash-cell filled">10</div><div class="hash-cell filled">24</div>
+<div class="hash-cell collision">38</div><div class="hash-cell collision">17</div>
+</div></div>
+<div class="info-box success"><strong>Ưu điểm Double Hashing</strong>Bước nhảy khác nhau cho mỗi key → phân tán đều hơn Linear Probing, tránh phân cụm.</div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-blue">Bài 8</span> Chaining — h(k)=k mod 7 — chèn: 14,21,28,35,42 (cụm cực đoan)</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>k mod 7</th><th>Ghi chú</th></tr>
+<tr><td>14</td><td>0</td><td>14 = 2×7</td></tr>
+<tr><td>21</td><td>0</td><td>21 = 3×7</td></tr>
+<tr><td>28</td><td>0</td><td>28 = 4×7</td></tr>
+<tr><td>35</td><td>0</td><td>35 = 5×7</td></tr>
+<tr><td>42</td><td>0</td><td>42 = 6×7</td></tr>
+</table></div>
+<div class="hash-table-visual">
+<div class="hash-row"><div class="hash-idx">0</div><div class="hash-cell filled">14</div><span class="hash-chain">→</span><span class="hash-node">21</span><span class="hash-chain">→</span><span class="hash-node">28</span><span class="hash-chain">→</span><span class="hash-node">35</span><span class="hash-chain">→</span><span class="hash-node">42</span></div>
+<div class="hash-row"><div class="hash-idx">1</div><div class="hash-cell">—</div></div>
+<div class="hash-row"><div class="hash-idx">2</div><div class="hash-cell">—</div></div>
+<div class="hash-row"><div class="hash-idx">3</div><div class="hash-cell">—</div></div>
+<div class="hash-row"><div class="hash-idx">4</div><div class="hash-cell">—</div></div>
+<div class="hash-row"><div class="hash-idx">5</div><div class="hash-cell">—</div></div>
+<div class="hash-row"><div class="hash-idx">6</div><div class="hash-cell">—</div></div>
+</div>
+<div class="info-box danger"><strong>Phân cụm cực đoan</strong>Tất cả 5 phần tử đều ≡ 0 (mod 7) → dồn hết vào ô 0. Độ phức tạp tìm kiếm = O(n) thay vì O(1). Chọn hàm băm tốt để tránh tình trạng này.</div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-orange">Bài 9</span> Coalesced — h(k)=k mod 7 — chèn: 5,12,19,26,33</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h(k)</th><th>Hành động</th></tr>
+<tr><td>5</td><td>5</td><td>ô 5 trống → đặt vào</td></tr>
+<tr><td>12</td><td>5</td><td>ô 5 bị chiếm → tìm từ cuối: ô 6 trống → đặt 12 vào ô 6, ô 5.next=6</td></tr>
+<tr><td>19</td><td>5</td><td>chain 5→6 đều chiếm → ô 4 trống → đặt 19 vào ô 4, ô 6.next=4</td></tr>
+<tr><td>26</td><td>5</td><td>chain 5→6→4 đều chiếm → ô 3 trống → đặt 26 vào ô 3, ô 4.next=3</td></tr>
+<tr><td>33</td><td>5</td><td>chain 5→6→4→3 đều chiếm → ô 2 trống → đặt 33 vào ô 2, ô 3.next=2</td></tr>
+</table></div>
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>Ô</th><th>Giá trị</th><th>Next</th></tr>
+<tr><td>0</td><td>—</td><td>—</td></tr>
+<tr><td>1</td><td>—</td><td>—</td></tr>
+<tr><td>2</td><td style="color:#f0883e">33</td><td>—</td></tr>
+<tr><td>3</td><td style="color:#f0883e">26</td><td>→ 2</td></tr>
+<tr><td>4</td><td style="color:#f0883e">19</td><td>→ 3</td></tr>
+<tr><td>5</td><td style="color:#f0883e">5</td><td>→ 6</td></tr>
+<tr><td>6</td><td style="color:#f0883e">12</td><td>→ 4</td></tr>
+</table></div>
+</div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span><span class="tag tag-blue">Bài 10</span> Double Hashing — h1=k mod 5, h2=3-(k mod 3) — chèn: 12,17,22,27,32</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<div class="formula">index = (h1(k) + i × h2(k)) mod 5</div>
+<div class="tbl-wrap"><table class="trace-table">
+<tr><th>k</th><th>h1=k%5</th><th>h2=3-(k%3)</th><th>i=0</th><th>i=1</th><th>i=2</th><th>Đặt ô</th></tr>
+<tr><td>12</td><td>2</td><td>3-(0)=3</td><td>2✓</td><td></td><td></td><td>2</td></tr>
+<tr><td>17</td><td>2</td><td>3-(2)=1</td><td>2✗</td><td>(2+1)%5=3✓</td><td></td><td>3</td></tr>
+<tr><td>22</td><td>2</td><td>3-(1)=2</td><td>2✗</td><td>(2+2)%5=4✓</td><td></td><td>4</td></tr>
+<tr><td>27</td><td>2</td><td>3-(0)=3</td><td>2✗</td><td>(2+3)%5=0✓</td><td></td><td>0</td></tr>
+<tr><td>32</td><td>2</td><td>3-(2)=1</td><td>2✗</td><td>(2+1)%5=3✗</td><td>(2+2)%5=4✗ → (2+3)%5=0✗ → (2+4)%5=1✓</td><td>1</td></tr>
+</table></div>
+<div class="hash-table-visual">
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">0</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">1</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">2</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">3</div>
+<div class="hash-cell" style="background:var(--bg4);color:var(--text3);font-size:11px">4</div>
+</div>
+<div class="hash-row"><div class="hash-idx"></div>
+<div class="hash-cell collision">27</div>
+<div class="hash-cell collision">32</div>
+<div class="hash-cell filled">12</div>
+<div class="hash-cell filled">17</div>
+<div class="hash-cell filled">22</div>
+</div></div>
+</div>
+</div>
+
+</div><!-- end accordion -->
+
+<h2 id="p4-thucte">7. Ứng dụng thực tế Hash Table</h2>
+<div class="accordion">
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Cloud Deduplication — Google Drive</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Khi upload file video 2GB, Google Drive không upload lại nếu file đã tồn tại. Cơ chế: tính hash SHA-256 của file → tra trong Bảng Băm (O(1)) → nếu đã có hash đó → bỏ qua, chỉ tạo liên kết. Tiết kiệm bandwidth và storage.</p>
+<div class="info-box tip"><strong>Tại sao không dùng cây BST?</strong>BST tìm kiếm O(log n) vs Hash Table O(1). Với hàng tỷ file trên Cloud, sự khác biệt rất lớn.</div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Facebook gợi ý kết bạn — Hash Table vs Nested Loop</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Tìm bạn chung giữa user A (N bạn) và user B (M bạn):</p>
+<ul>
+<li><strong>Nested Loop:</strong> duyệt mọi cặp → O(N×M) — chậm với N,M = hàng nghìn</li>
+<li><strong>Hash Table:</strong> hash tất cả bạn của A → duyệt bạn của B, tra O(1) từng người → tổng O(N+M)</li>
+</ul>
+<div class="info-box success"><strong>Ví dụ số liệu</strong>N=M=1000: Nested Loop = 1.000.000 phép so sánh. Hash Table = 2.000 phép so sánh. Nhanh hơn 500 lần!</div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>DNS Cache — Hash Table vs Cây</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>DNS Cache lưu ánh xạ tên miền → IP. Mỗi request vào website đều tra DNS. Hash Table cho phép tra O(1) thay vì O(log n) của cây → giảm độ trễ mỗi lần duyệt web.</p>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Bảo mật mật khẩu — SHA-256 một chiều</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Website không lưu password dạng text mà lưu <code>hash(password)</code>. Khi đăng nhập: tính hash của password nhập vào → so sánh với hash đã lưu. Hàm băm một chiều không thể đảo ngược → dù hacker lấy được database cũng không biết password gốc.</p>
+<div class="info-box warn"><strong>Tại sao không mã hóa 2 chiều?</strong>Mã hóa 2 chiều cần key → nếu mất key, mất luôn dữ liệu. Hash 1 chiều an toàn hơn cho password.</div>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Redis Cache — Shopee giỏ hàng</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Shopee lưu giỏ hàng của mỗi user trên Redis (Hash Table trên RAM). Key = user_id, Value = giỏ hàng. Tra cứu O(1), độ trễ ~1ms. So với database SQL trên disk: ~10-100ms. Với 10 triệu user đồng thời, sự chênh lệch này rất quan trọng.</p>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Git — SHA-1 đánh nhãn Commit</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Git dùng SHA-1 hash nội dung mỗi commit → tạo ra chuỗi 40 ký tự hex duy nhất (ví dụ: <code>a1b2c3d4...</code>). Bất kỳ thay đổi nào dù chỉ 1 ký tự đều tạo ra hash hoàn toàn khác → đảm bảo toàn vẹn lịch sử code.</p>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Checksum file — MD5</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Khi tải game/software, website cung cấp kèm MD5 hash. Sau khi tải xong, người dùng tính MD5 của file vừa tải → so sánh với MD5 gốc. Nếu khớp → file nguyên vẹn. Nếu khác → file bị lỗi hoặc bị can thiệp.</p>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)"><span>Load Balancing — Hash IP</span><span class="acc-arrow">▾</span></div>
+<div class="acc-body">
+<p>Server nhận request → hash IP của client → mod số server → điều hướng vào đúng server đó. Đảm bảo cùng 1 client luôn vào cùng 1 server (session stickiness) và phân tán đều tải.</p>
+<div class="formula">server_id = hash(client_IP) mod số_server</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- ===== QUIZ ===== -->
+<div class="section-page" id="page-quiz">
+  <div class="page-title">Quiz Ôn Tập <span class="badge" style="background:#2a1a3a;color:#f778ba">LUYỆN TẬP</span></div>
+  <p class="page-desc">20 câu trắc nghiệm phủ đủ 4 phần — click chọn đáp án, hiện giải thích ngay.</p>
+  <div id="quiz-container"></div>
+</div>
+
+</main>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.section-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + tab).classList.add('active');
+  var tabs = ['p1','p2','p3','p4','quiz'];
+  document.querySelectorAll('.nav-tab')[tabs.indexOf(tab)].classList.add('active');
+  buildSidebar(tab);
+  window.scrollTo(0, 0);
+}
+
+var sidebarData = {
+  p1: [
+    {id:'p1-struct', label:'Khai báo cấu trúc'},
+    {id:'p1-basic', label:'Thao tác cơ sở'},
+    {id:'p1-bt', label:'13 Bài toán'},
+    {id:'p1-summary', label:'Bảng Pattern'},
+  ],
+  p2: [
+    {id:'p2-struct', label:'Cấu trúc Stack'},
+    {id:'p2-queue', label:'Cấu trúc Queue'},
+    {id:'p2-infix', label:'Infix→Postfix trace 1'},
+    {id:'p2-postfix', label:'Tính Postfix trace 1'},
+    {id:'p2-bracket', label:'Kiểm tra ngoặc'},
+    {id:'p2-misc', label:'Chuyển cơ số / Queue'},
+    {id:'p2-trace2', label:'Infix→Postfix trace 2'},
+    {id:'p2-trace4', label:'Tính Postfix trace 4'},
+    {id:'p2-thucte', label:'Ứng dụng thực tế'},
+  ],
+  p3: [
+    {id:'p3-kn', label:'Khái niệm + BF'},
+    {id:'p3-rotate', label:'4 Phép xoay'},
+    {id:'p3-insert', label:'Thêm node'},
+    {id:'p3-delete', label:'Xóa node'},
+    {id:'p3-rec', label:'8 Pattern đệ quy'},
+    {id:'p3-trace1', label:'Trace bộ số 1'},
+    {id:'p3-trace2', label:'Trace bộ số 2'},
+    {id:'p3-trace3', label:'Trace bộ số 3'},
+  ],
+  p4: [
+    {id:'p4-chaining', label:'Chaining'},
+    {id:'p4-linear', label:'Linear Probing'},
+    {id:'p4-coalesced', label:'Coalesced'},
+    {id:'p4-double', label:'Double Hashing'},
+    {id:'p4-summary', label:'So sánh 4 kỹ thuật'},
+    {id:'p4-all10', label:'10 bài tập đề cương'},
+    {id:'p4-thucte', label:'Ứng dụng thực tế'},
+  ],
+  quiz: [],
+};
+
+function buildSidebar(tab) {
+  var sb = document.getElementById('sidebar');
+  var items = sidebarData[tab] || [];
+  if (!items.length) { sb.innerHTML = ''; return; }
+  var html = '<div class="sidebar-section"><div class="sidebar-label">Nội dung</div>';
+  items.forEach(function(it, i) {
+    html += '<div class="sidebar-item" onclick="scrollToId(\''+it.id+'\',this)"><span class="si-num">'+String(i+1).padStart(2,'0')+'</span>'+it.label+'</div>';
+  });
+  html += '</div>';
+  sb.innerHTML = html;
+}
+
+function scrollToId(id, el) {
+  var el2 = document.getElementById(id);
+  if (el2) el2.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.sidebar-item').forEach(function(e) { e.classList.remove('active'); });
+  if (el) el.classList.add('active');
+}
+
+buildSidebar('p1');
+
+function toggleAcc(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+function copyCode(btn) {
+  var pre = btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(function() {
+    btn.textContent = 'copied!';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+var quizData = [
+  {part:'P1',q:'Để đảo ngược DSLK, kỹ thuật dùng mấy con trỏ phụ?',opts:['1 — chỉ cần cur','2 — prev và cur','3 — prev, cur, nxt','4 con trỏ'],ans:2,explain:'Kỹ thuật 3 con trỏ: prev giữ node trước, cur là node hiện tại, nxt lưu node kế trước khi đảo chiều.'},
+  {part:'P1',q:'Nối 2 DSLK L1 và L2 có độ phức tạp là?',opts:['O(n)','O(log n)','O(1)','O(n²)'],ans:2,explain:'Chỉ cần L1.tail->next = L2.head và L1.tail = L2.tail. Không cần duyệt → O(1).'},
+  {part:'P1',q:'Số nào sau đây KHÔNG phải số chính phương?',opts:['0','1','2','9'],ans:2,explain:'√2 ≈ 1.41 không nguyên. 0=0², 1=1², 9=3² đều là số chính phương. 2 không phải.'},
+  {part:'P1',q:'Bubble sort trên DSLK khi thi nên dùng cách nào?',opts:['Swap con trỏ next','Swap data giữa các node','Tạo list mới','Dùng mảng trung gian'],ans:1,explain:'Swap data (không swap con trỏ) — đơn giản, ít lỗi, kết quả hoàn toàn đúng khi thi.'},
+  {part:'P2',q:'Tính Postfix "3 4 * 2 -" cho kết quả?',opts:['10','14','5','12'],ans:0,explain:'Push 3, push 4, * → 3×4=12. Push 2, - → 12-2=10. Kết quả = 10.'},
+  {part:'P2',q:'Chuỗi "([)]" có hợp lệ không?',opts:['Hợp lệ','Không hợp lệ','Tùy ngữ cảnh','Thiếu thông tin'],ans:1,explain:'Gặp ")" → top stack là "[" → không khớp → false. Chuỗi không hợp lệ.'},
+  {part:'P2',q:'Infix "a + b * c" sang Postfix là?',opts:['a b c * +','a b + c *','a b + c +','a b c + *'],ans:0,explain:'* ưu tiên cao hơn + → b*c được xử lý trước. Postfix: a b c * +'},
+  {part:'P2',q:'Tại sao Undo/Redo (Ctrl+Z/Y) bắt buộc dùng Stack?',opts:['Stack nhanh hơn Queue','Cần hoàn tác ngược thứ tự thực hiện (LIFO)','Stack tốn ít RAM hơn','Queue không hỗ trợ'],ans:1,explain:'Undo cần hoàn tác thao tác CUỐI CÙNG trước → LIFO → bắt buộc dùng Stack.'},
+  {part:'P2',q:'Tại sao BFS dùng Queue, DFS dùng Stack?',opts:['Tùy sở thích lập trình viên','BFS cần FIFO để duyệt từng lớp, DFS cần LIFO để đi sâu','Cả hai đều được','Do cấu trúc đồ thị quyết định'],ans:1,explain:'BFS xử lý node gần nhất trước (FIFO = Queue). DFS đi sâu nhất trước, quay lại sau (LIFO = Stack).'},
+  {part:'P3',q:'BF = +2, BF(con trái) = -1 → dùng phép xoay nào?',opts:['LL — xoay phải','RR — xoay trái','LR — xoay trái con rồi xoay phải gốc','RL — xoay phải con rồi xoay trái gốc'],ans:2,explain:'BF=+2 → lệch trái. BF con trái = -1 < 0 → LR. Xoay trái con trái trước, rồi xoay phải gốc.'},
+  {part:'P3',q:'BF = -2, BF(con phải) = +1 → dùng phép xoay nào?',opts:['LL','RR','LR','RL — xoay phải con rồi xoay trái gốc'],ans:3,explain:'BF=-2 → lệch phải. BF con phải = +1 > 0 → RL. Xoay phải con phải trước, rồi xoay trái gốc.'},
+  {part:'P3',q:'Khi xóa node có 2 con, node thay thế là?',opts:['Node lớn nhất cây con trái','Node nhỏ nhất cây con phải (inorder successor)','Node gốc','Bất kỳ node lá nào'],ans:1,explain:'Inorder successor = min(cây con phải). Copy data vào node cần xóa, rồi xóa inorder successor.'},
+  {part:'P3',q:'Duyệt LNR trên BST cho kết quả thế nào?',opts:['Giảm dần','Tăng dần','Ngẫu nhiên','Theo mức BFS'],ans:1,explain:'LNR (Left-Node-Right) trên BST luôn cho kết quả tăng dần. Tính chất quan trọng nhất của BST!'},
+  {part:'P3',q:'Chiều cao node null trong AVL là?',opts:['0','1','-1','NULL'],ans:2,explain:'Quy ước: node null → height = -1. Node lá → height = 0. BF = height(left) - height(right).'},
+  {part:'P4',q:'Linear Probing h(k)=k mod 7, bảng đã có 10 ở ô 3. Chèn 17 vào ô nào?',opts:['Ô 3','Ô 4','Ô 0','Ô 2'],ans:1,explain:'17 mod 7 = 3. Ô 3 bị chiếm → thử (3+1) mod 7 = 4. Ô 4 trống → đặt vào ô 4.'},
+  {part:'P4',q:'Coalesced Hashing: khi có va chạm, tìm ô trống theo hướng nào?',opts:['Từ đầu xuống','Từ cuối lên','Ngẫu nhiên','Theo h2(k)'],ans:1,explain:'Coalesced luôn tìm ô trống từ CUỐI bảng lên. Đây là đặc trưng phân biệt với Linear Probing.'},
+  {part:'P4',q:'Double Hashing h1=k mod 7, h2=5-(k mod 5). Với k=17: h2(17)=?',opts:['2','3','4','5'],ans:1,explain:'17 mod 5 = 2. h2(17) = 5 - 2 = 3. Bước nhảy = 3.'},
+  {part:'P4',q:'Chaining với h(k)=k mod 7, chèn 14,21,28 → hiện tượng gì?',opts:['Phân tán đều','Phân cụm cực đoan ở ô 0','Lỗi bộ nhớ','Không có va chạm'],ans:1,explain:'14,21,28 đều ≡ 0 (mod 7) → dồn hết vào ô 0. Phân cụm cực đoan → tìm kiếm O(n) thay vì O(1).'},
+  {part:'P4',q:'Tại sao Hash Table tốt hơn cây BST cho DNS Cache?',opts:['Hash Table tốn ít RAM hơn','Hash Table tra cứu O(1) vs BST O(log n)','Hash Table đơn giản code hơn','BST không lưu được tên miền'],ans:1,explain:'Tra cứu O(1) của Hash Table vs O(log n) của BST. Với hàng tỷ tên miền và request/giây, O(1) quan trọng hơn nhiều.'},
+  {part:'P4',q:'Git dùng hàm băm để làm gì?',opts:['Nén file source code','Đánh nhãn toàn vẹn cho mỗi Commit (SHA-1)','Mã hóa password developer','Tăng tốc merge branch'],ans:1,explain:'Git dùng SHA-1 hash nội dung commit → chuỗi 40 ký tự hex. Bất kỳ thay đổi nào → hash khác → phát hiện ngay.'},
+];
+
+function buildQuiz() {
+  var c = document.getElementById('quiz-container');
+  var html = '';
+  quizData.forEach(function(q, qi) {
+    html += '<div class="quiz-box" style="margin-bottom:20px">';
+    html += '<div style="font-size:11px;font-family:var(--mono);color:var(--pink);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em">'+q.part+' &nbsp;•&nbsp; Câu '+(qi+1)+'/'+quizData.length+'</div>';
+    html += '<div class="quiz-q">'+q.q+'</div>';
+    html += '<div class="quiz-opts">';
+    q.opts.forEach(function(o, oi) {
+      html += '<button class="quiz-opt" onclick="answerQuiz('+qi+','+oi+',this)">'+String.fromCharCode(65+oi)+'. '+o+'</button>';
+    });
+    html += '</div><div class="quiz-feedback" id="qf-'+qi+'"></div></div>';
+  });
+  c.innerHTML = html;
+}
+
+function answerQuiz(qi, chosen, btn) {
+  var q = quizData[qi];
+  var opts = btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(function(o) { o.disabled = true; });
+  if (chosen === q.ans) btn.classList.add('correct');
+  else { btn.classList.add('wrong'); opts[q.ans].classList.add('correct'); }
+  var fb = document.getElementById('qf-'+qi);
+  fb.className = 'quiz-feedback show ' + (chosen === q.ans ? 'ok' : 'no');
+  fb.innerHTML = (chosen === q.ans ? '✓ Đúng! ' : '✗ Sai. ') + q.explain;
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
