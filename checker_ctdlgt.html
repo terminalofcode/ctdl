@@ -6,1519 +6,492 @@
 <title>Code Checker — CTDLGT HUIT</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #09090f;
-  --bg2: #111118;
-  --bg3: #18181f;
-  --bg4: #222230;
-  --border: #2a2a3a;
-  --border2: #3a3a50;
-  --text: #e8e8f0;
-  --text2: #9090a8;
-  --text3: #5a5a70;
-  --accent: #7c6dff;
-  --accent2: #a594ff;
-  --accent-bg: #1a1730;
-  --green: #4ade80;
-  --green-bg: #0d2018;
-  --green-border: #1a4030;
-  --red: #f87171;
-  --red-bg: #200d0d;
-  --red-border: #401a1a;
-  --yellow: #fbbf24;
-  --yellow-bg: #1f1500;
-  --orange: #fb923c;
-  --blue: #60a5fa;
-  --blue-bg: #0d1525;
-  --pink: #f472b6;
-  --mono: 'JetBrains Mono', monospace;
-  --sans: 'Syne', sans-serif;
-  --radius: 10px;
-  --radius-lg: 16px;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* GRID BACKGROUND */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(124,109,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124,109,255,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* GLOW */
-.glow-blob {
-  position: fixed;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(124,109,255,0.08) 0%, transparent 70%);
-  top: -200px; right: -200px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* HEADER */
-header {
-  position: relative;
-  z-index: 10;
-  padding: 20px 32px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(9,9,15,0.8);
-  backdrop-filter: blur(20px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  width: 36px; height: 36px;
-  background: var(--accent);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 800;
-  color: white;
-  font-family: var(--mono);
-}
-
-.logo-text {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.logo-sub {
-  font-size: 11px;
-  color: var(--text3);
-  font-family: var(--mono);
-}
-
-.header-badge {
-  font-family: var(--mono);
-  font-size: 11px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1px solid var(--border2);
-  color: var(--text3);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.dot-live {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-/* MAIN LAYOUT */
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px;
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 24px;
-  min-height: calc(100vh - 77px);
-}
-
-/* LEFT PANEL — QUESTION LIST */
-.panel-left {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.panel-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-family: var(--mono);
-  padding: 0 4px;
-  margin-bottom: 4px;
-}
-
-/* FILTER TABS */
-.filter-tabs {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.filter-tab {
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  font-family: var(--mono);
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text3);
-  transition: all 0.15s;
-}
-
-.filter-tab:hover { border-color: var(--border2); color: var(--text2); }
-.filter-tab.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent2); }
-
-/* QUESTION CARDS */
-.q-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  overflow-y: auto;
-  max-height: calc(100vh - 200px);
-  padding-right: 4px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-
-.q-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-  position: relative;
-  overflow: hidden;
-}
-
-.q-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-
-.q-card:hover { border-color: var(--border2); background: var(--bg3); }
-.q-card.active { border-color: var(--accent); background: var(--accent-bg); }
-.q-card.active::before { opacity: 1; }
-.q-card.done-correct { border-color: var(--green-border); }
-.q-card.done-correct::before { background: var(--green); opacity: 1; }
-.q-card.done-wrong { border-color: var(--red-border); }
-.q-card.done-wrong::before { background: var(--red); opacity: 1; }
-
-.q-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.q-tag {
-  font-size: 10px;
-  font-family: var(--mono);
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.tag-dslk { background: rgba(96,165,250,0.15); color: var(--blue); }
-.tag-stack { background: rgba(74,222,128,0.15); color: var(--green); }
-.tag-avl { background: rgba(251,146,60,0.15); color: var(--orange); }
-.tag-hash { background: rgba(244,114,182,0.15); color: var(--pink); }
-
-.q-status {
-  font-size: 14px;
-}
-
-.q-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 4px;
-  line-height: 1.4;
-}
-
-.q-meta {
-  font-size: 11px;
-  color: var(--text3);
-  font-family: var(--mono);
-}
-
-/* DIFFICULTY STARS */
-.diff {
-  display: inline-flex;
-  gap: 2px;
-  font-size: 10px;
-}
-
-/* RIGHT PANEL — EDITOR + RESULT */
-.panel-right {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* QUESTION DISPLAY */
-.q-display {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px 28px;
-}
-
-.q-display-num {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--accent2);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 10px;
-}
-
-.q-display-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-
-.q-display-desc {
-  font-size: 13px;
-  color: var(--text2);
-  margin-bottom: 16px;
-  line-height: 1.7;
-  font-family: var(--mono);
-}
-
-.q-display-desc strong { color: var(--accent2); }
-
-.requirement-box {
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  padding: 14px 16px;
-  margin-top: 12px;
-}
-
-.req-label {
-  font-size: 10px;
-  font-family: var(--mono);
-  font-weight: 700;
-  color: var(--accent2);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
-}
-
-.req-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.req-list li {
-  font-size: 12px;
-  color: var(--text2);
-  font-family: var(--mono);
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.req-list li::before {
-  content: '→';
-  color: var(--accent);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* SAMPLE IO */
-.sample-io {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.io-box {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 14px;
-}
-
-.io-label {
-  font-size: 10px;
-  font-family: var(--mono);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 6px;
-}
-
-.io-label.in { color: var(--blue); }
-.io-label.out { color: var(--green); }
-
-.io-content {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text2);
-  white-space: pre;
-  line-height: 1.6;
-}
-
-/* CODE EDITOR */
-.editor-wrap {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.editor-header {
-  padding: 12px 16px;
-  background: var(--bg3);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.editor-title {
-  font-size: 12px;
-  font-family: var(--mono);
-  color: var(--text2);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.editor-dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot-r { background: #ff5f57; }
-.dot-y { background: #febc2e; }
-.dot-g { background: #28c840; }
-
-.editor-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-clear {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text3);
-  background: none;
-  border: 1px solid var(--border);
-  padding: 5px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.btn-clear:hover { border-color: var(--border2); color: var(--text2); }
-
-.btn-submit {
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 700;
-  color: white;
-  background: var(--accent);
-  border: none;
-  padding: 8px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  letter-spacing: 0.02em;
-}
-
-.btn-submit:hover { background: #6b5ce8; transform: translateY(-1px); }
-.btn-submit:active { transform: translateY(0); }
-.btn-submit:disabled { background: var(--bg4); color: var(--text3); cursor: not-allowed; transform: none; }
-
-.btn-submit .spinner {
-  width: 14px; height: 14px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  display: none;
-}
-
-.btn-submit.loading .spinner { display: block; }
-.btn-submit.loading .btn-text { display: none; }
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-textarea#code-input {
-  width: 100%;
-  min-height: 320px;
-  background: var(--bg);
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.7;
-  padding: 20px 24px;
-  resize: vertical;
-  tab-size: 4;
-}
-
-textarea#code-input::placeholder {
-  color: var(--text3);
-  font-style: italic;
-}
-
-/* RESULT PANEL */
-.result-panel {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  display: none;
-  animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.result-panel.show { display: block; }
-
-.result-header {
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.result-header.correct { background: var(--green-bg); border-bottom: 1px solid var(--green-border); }
-.result-header.partial { background: var(--yellow-bg); border-bottom: 1px solid #3a2a00; }
-.result-header.wrong { background: var(--red-bg); border-bottom: 1px solid var(--red-border); }
-.result-header.error { background: var(--bg3); border-bottom: 1px solid var(--border); }
-
-.result-verdict {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.verdict-icon {
-  font-size: 24px;
-  line-height: 1;
-}
-
-.verdict-text {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.correct .verdict-text { color: var(--green); }
-.partial .verdict-text { color: var(--yellow); }
-.wrong .verdict-text { color: var(--red); }
-.error .verdict-text { color: var(--text2); }
-
-.verdict-sub {
-  font-size: 12px;
-  color: var(--text3);
-  font-family: var(--mono);
-  margin-top: 2px;
-}
-
-.score-badge {
-  font-family: var(--mono);
-  font-size: 20px;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 8px;
-}
-
-.correct .score-badge { background: rgba(74,222,128,0.2); color: var(--green); }
-.partial .score-badge { background: rgba(251,191,36,0.2); color: var(--yellow); }
-.wrong .score-badge { background: rgba(248,113,113,0.2); color: var(--red); }
-
-.result-body {
-  padding: 20px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* SECTION BLOCKS IN RESULT */
-.result-section {
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
-.rs-header {
-  padding: 10px 16px;
-  background: var(--bg3);
-  font-size: 12px;
-  font-weight: 700;
-  font-family: var(--mono);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-bottom: 1px solid var(--border);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.rs-body {
-  padding: 14px 16px;
-  background: var(--bg);
-  font-size: 13px;
-  color: var(--text2);
-  line-height: 1.75;
-  font-family: var(--mono);
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/* CHECKLIST */
-.checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 12px 16px;
-  background: var(--bg);
-}
-
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--text2);
-  font-family: var(--mono);
-  line-height: 1.5;
-}
-
-.check-icon { flex-shrink: 0; margin-top: 1px; }
-.check-ok { color: var(--green); }
-.check-no { color: var(--red); }
-.check-warn { color: var(--yellow); }
-
-/* LOADING STATE */
-.loading-overlay {
-  padding: 40px 24px;
-  text-align: center;
-  display: none;
-}
-
-.loading-overlay.show { display: block; }
-
-.loading-bar-wrap {
-  width: 200px;
-  height: 3px;
-  background: var(--border);
-  border-radius: 2px;
-  margin: 16px auto 0;
-  overflow: hidden;
-}
-
-.loading-bar {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 2px;
-  animation: loadbar 1.5s ease-in-out infinite;
-}
-
-@keyframes loadbar {
-  0% { width: 0%; margin-left: 0; }
-  50% { width: 60%; margin-left: 20%; }
-  100% { width: 0%; margin-left: 100%; }
-}
-
-.loading-text {
-  font-size: 13px;
-  color: var(--text3);
-  font-family: var(--mono);
-  animation: blink 1.5s ease infinite;
-}
-
-@keyframes blink {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-/* EMPTY STATE */
-.empty-state {
-  text-align: center;
-  padding: 60px 24px;
-  color: var(--text3);
-}
-
-.empty-icon { font-size: 48px; margin-bottom: 12px; }
-.empty-text { font-size: 14px; }
-
-/* PROGRESS BAR */
-.progress-section {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 18px;
-}
-
-.progress-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.progress-label {
-  font-size: 11px;
-  font-family: var(--mono);
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.progress-count {
-  font-size: 13px;
-  font-family: var(--mono);
-  font-weight: 700;
-  color: var(--accent2);
-}
-
-.progress-bar-bg {
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--pink));
-  border-radius: 2px;
-  transition: width 0.4s ease;
-}
-
-/* API KEY BAR */
-.api-key-bar {
-  position: relative;
-  z-index: 10;
-  padding: 10px 32px;
-  background: rgba(9,9,15,0.9);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.api-key-label {
-  font-size: 11px;
-  font-family: var(--mono);
-  font-weight: 700;
-  color: var(--text3);
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.gemini-badge {
-  font-size: 10px;
-  font-family: var(--mono);
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(66,133,244,0.15);
-  color: #60a5fa;
-  border: 1px solid rgba(66,133,244,0.3);
-}
-
-.api-key-input-wrap {
-  flex: 1;
-  min-width: 260px;
-  max-width: 480px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-#api-key-input {
-  width: 100%;
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 12px;
-  padding: 7px 38px 7px 12px;
-  outline: none;
-  transition: border-color 0.15s;
-}
-
-#api-key-input:focus { border-color: var(--accent); }
-#api-key-input::placeholder { color: var(--text3); }
-
-.btn-toggle-key {
-  position: absolute;
-  right: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text3);
-  font-size: 14px;
-  padding: 2px;
-  line-height: 1;
-  transition: color 0.15s;
-}
-.btn-toggle-key:hover { color: var(--text2); }
-
-.api-key-hint {
-  font-size: 11px;
-  color: var(--text3);
-  font-family: var(--mono);
-}
-
-.api-key-hint a {
-  color: var(--accent2);
-  text-decoration: none;
-}
-.api-key-hint a:hover { text-decoration: underline; }
-
-.api-key-status {
-  font-size: 11px;
-  font-family: var(--mono);
-  padding: 4px 10px;
-  border-radius: 6px;
-  display: none;
-}
-.api-key-status.ok { display: inline-block; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.api-key-status.missing { display: inline-block; background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
-
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .container { grid-template-columns: 1fr; }
-  .q-list { max-height: 300px; }
-}
+:root{--bg:#09090f;--bg2:#111118;--bg3:#18181f;--bg4:#222230;--border:#2a2a3a;--border2:#3a3a50;--text:#e8e8f0;--text2:#9090a8;--text3:#5a5a70;--accent:#7c6dff;--accent2:#a594ff;--accent-bg:#1a1730;--green:#4ade80;--green-bg:#0d2018;--green-border:#1a4030;--red:#f87171;--red-bg:#200d0d;--red-border:#401a1a;--yellow:#fbbf24;--yellow-bg:#1f1500;--yellow-border:#3a2a00;--orange:#fb923c;--blue:#60a5fa;--pink:#f472b6;--mono:'JetBrains Mono',monospace;--sans:'Syne',sans-serif;--radius:10px;--radius-lg:16px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,109,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(124,109,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.glow-blob{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(124,109,255,.08) 0%,transparent 70%);top:-200px;right:-200px;pointer-events:none;z-index:0}
+header{position:relative;z-index:10;padding:18px 32px;border-bottom:1px solid var(--border);background:rgba(9,9,15,.85);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo-wrap{display:flex;align-items:center;gap:12px}
+.logo-icon{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;font-family:var(--mono)}
+.logo-text{font-size:16px;font-weight:700}.logo-sub{font-size:11px;color:var(--text3);font-family:var(--mono)}
+.header-right{display:flex;align-items:center;gap:12px}
+.header-badge{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);color:var(--text3);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.btn-back{display:flex;align-items:center;gap:7px;padding:6px 14px;background:rgba(124,109,255,.1);border:1px solid rgba(124,109,255,.3);border-radius:8px;color:#a594ff;font-size:12px;font-weight:600;text-decoration:none;font-family:var(--mono);white-space:nowrap;transition:border-color .15s,background .15s}
+.btn-back:hover{border-color:#7c6dff;background:rgba(124,109,255,.2)}
+.container{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:28px 24px;display:grid;grid-template-columns:300px 1fr;gap:22px;min-height:calc(100vh - 73px)}
+.panel-left{display:flex;flex-direction:column;gap:10px}
+.panel-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;font-family:var(--mono);padding:0 4px;margin-bottom:2px}
+.filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.filter-tab{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;font-family:var(--mono);cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text3);transition:all .15s}
+.filter-tab:hover{border-color:var(--border2);color:var(--text2)}.filter-tab.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent2)}
+.progress-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.progress-label{font-size:11px;font-family:var(--mono);color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.progress-count{font-size:13px;font-family:var(--mono);font-weight:700;color:var(--accent2)}
+.progress-bar-bg{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--pink));border-radius:2px;transition:width .4s ease}
+.q-list{display:flex;flex-direction:column;gap:7px;overflow-y:auto;max-height:calc(100vh - 230px);padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;cursor:pointer;transition:border-color .15s,background .15s;position:relative;overflow:hidden}
+.q-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:0;transition:opacity .15s}
+.q-card:hover{border-color:var(--border2);background:var(--bg3)}.q-card.active{border-color:var(--accent);background:var(--accent-bg)}.q-card.active::before{opacity:1}
+.q-card.done-ok{border-color:var(--green-border)}.q-card.done-ok::before{background:var(--green);opacity:1}
+.q-card.done-partial{border-color:var(--yellow-border)}.q-card.done-partial::before{background:var(--yellow);opacity:1}
+.q-card.done-fail{border-color:var(--red-border)}.q-card.done-fail::before{background:var(--red);opacity:1}
+.q-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.q-tag{font-size:10px;font-family:var(--mono);font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em}
+.tag-dslk{background:rgba(96,165,250,.15);color:var(--blue)}.tag-stack{background:rgba(74,222,128,.15);color:var(--green)}
+.q-status{font-size:13px}.q-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.4}.q-meta{font-size:11px;color:var(--text3);font-family:var(--mono)}
+.panel-right{display:flex;flex-direction:column;gap:14px}
+.q-display{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px 26px}
+.q-display-num{font-family:var(--mono);font-size:11px;color:var(--accent2);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px}
+.q-display-title{font-size:18px;font-weight:700;margin-bottom:11px}
+.q-display-desc{font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.7;font-family:var(--mono)}.q-display-desc strong{color:var(--accent2)}
+.requirement-box{background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;padding:12px 15px;margin-top:10px}
+.req-label{font-size:10px;font-family:var(--mono);font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}
+.req-list{list-style:none;display:flex;flex-direction:column;gap:4px}.req-list li{font-size:12px;color:var(--text2);font-family:var(--mono);display:flex;align-items:flex-start;gap:8px}.req-list li::before{content:'→';color:var(--accent);flex-shrink:0;margin-top:1px}
+.sample-io{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
+.io-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px}
+.io-label{font-size:10px;font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}.io-label.in{color:var(--blue)}.io-label.out{color:var(--green)}
+.io-content{font-family:var(--mono);font-size:12px;color:var(--text2);white-space:pre;line-height:1.6}
+.editor-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column}
+.editor-header{padding:11px 15px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.editor-title{font-size:12px;font-family:var(--mono);color:var(--text2);display:flex;align-items:center;gap:7px}
+.editor-dot{width:10px;height:10px;border-radius:50%}.dot-r{background:#ff5f57}.dot-y{background:#febc2e}.dot-g{background:#28c840}
+.editor-actions{display:flex;align-items:center;gap:7px}
+.btn-small{font-family:var(--mono);font-size:11px;color:var(--text3);background:none;border:1px solid var(--border);padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .15s}.btn-small:hover{border-color:var(--border2);color:var(--text2)}
+.btn-check{font-family:var(--sans);font-size:13px;font-weight:700;color:#fff;background:var(--accent);border:none;padding:8px 22px;border-radius:8px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px;letter-spacing:.02em}.btn-check:hover{background:#6b5ce8;transform:translateY(-1px)}.btn-check:active{transform:translateY(0)}
+textarea#code-input{width:100%;min-height:300px;background:var(--bg);border:none;outline:none;color:var(--text);font-family:var(--mono);font-size:12.5px;line-height:1.75;padding:18px 22px;resize:vertical;tab-size:4}
+textarea#code-input::placeholder{color:var(--text3);font-style:italic}
+.result-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;display:none;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.result-panel.show{display:block}
+.result-header{padding:16px 22px;display:flex;align-items:center;justify-content:space-between}
+.result-header.verdict-ok{background:var(--green-bg);border-bottom:1px solid var(--green-border)}
+.result-header.verdict-partial{background:var(--yellow-bg);border-bottom:1px solid var(--yellow-border)}
+.result-header.verdict-fail{background:var(--red-bg);border-bottom:1px solid var(--red-border)}
+.result-verdict{display:flex;align-items:center;gap:12px}.verdict-icon{font-size:24px;line-height:1}.verdict-text{font-size:16px;font-weight:700}
+.verdict-ok .verdict-text{color:var(--green)}.verdict-partial .verdict-text{color:var(--yellow)}.verdict-fail .verdict-text{color:var(--red)}
+.verdict-sub{font-size:12px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.score-badge{font-family:var(--mono);font-size:22px;font-weight:700;padding:6px 18px;border-radius:9px}
+.verdict-ok .score-badge{background:rgba(74,222,128,.2);color:var(--green)}.verdict-partial .score-badge{background:rgba(251,191,36,.2);color:var(--yellow)}.verdict-fail .score-badge{background:rgba(248,113,113,.2);color:var(--red)}
+.result-body{padding:18px 22px;display:flex;flex-direction:column;gap:14px}
+.result-section{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.rs-header{padding:9px 15px;background:var(--bg3);font-size:11px;font-weight:700;font-family:var(--mono);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.06em;color:var(--text2)}
+.rs-body{padding:13px 15px;background:var(--bg);font-size:12px;color:var(--text2);line-height:1.75;font-family:var(--mono);white-space:pre-wrap;word-break:break-word}
+.checklist{display:flex;flex-direction:column;gap:5px;padding:11px 15px;background:var(--bg)}
+.check-item{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--text2);font-family:var(--mono);line-height:1.5}
+.check-icon{flex-shrink:0;margin-top:1px;font-weight:700}.c-ok{color:var(--green)}.c-fail{color:var(--red)}
+.token-diff-wrap{padding:12px 15px;background:var(--bg);display:flex;flex-direction:column;gap:12px}
+.diff-col-title{font-size:10px;font-family:var(--mono);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.token-list{display:flex;flex-wrap:wrap;gap:5px}
+.token{font-size:11px;font-family:var(--mono);padding:2px 8px;border-radius:4px}
+.token.match{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.25)}
+.token.miss{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.empty-state{text-align:center;padding:60px 24px;color:var(--text3)}.empty-icon{font-size:44px;margin-bottom:10px}.empty-text{font-size:14px}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+@media(max-width:960px){.container{grid-template-columns:1fr}.q-list{max-height:260px}}
 </style>
 </head>
 <body>
-
 <div class="glow-blob"></div>
-
 <header>
   <div class="logo-wrap">
     <div class="logo-icon">C+</div>
-    <div>
-      <div class="logo-text">Code Checker</div>
-      <div class="logo-sub">CTDLGT — HUIT 2025-2026</div>
-    </div>
+    <div><div class="logo-text">Code Checker</div><div class="logo-sub">CTDLGT &mdash; HUIT 2025&ndash;2026</div></div>
   </div>
-  <div style="display:flex;align-items:center;gap:12px;margin-left:auto">
-    <a href="index.html" style="
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 14px;
-      background: rgba(124,109,255,0.1);
-      border: 1px solid rgba(124,109,255,0.3);
-      border-radius: 8px;
-      color: #a594ff;
-      font-size: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      font-family: var(--mono);
-      white-space: nowrap;
-      transition: border-color 0.15s, background 0.15s;
-    " onmouseover="this.style.borderColor='#7c6dff';this.style.background='rgba(124,109,255,0.2)'"
-       onmouseout="this.style.borderColor='rgba(124,109,255,0.3)';this.style.background='rgba(124,109,255,0.1)'">
-      ← Tài liệu ôn tập
-    </a>
-    <div class="header-badge">
-      <div class="dot-live"></div>
-      Gemini-Powered Grading
-    </div>
+  <div class="header-right">
+    <a href="index.html" class="btn-back">&larr; T&agrave;i li&#7879;u &ocirc;n t&#7853;p</a>
+    <div class="header-badge"><div class="dot-live"></div>Offline &middot; No API</div>
   </div>
 </header>
-
-<!-- API KEY BAR -->
-<div class="api-key-bar">
-  <div class="api-key-label">
-    🔑 Gemini API Key
-    <span class="gemini-badge">gemini-2.0-flash</span>
-  </div>
-  <div class="api-key-input-wrap">
-    <input type="password" id="api-key-input" placeholder="Nhập Gemini API key của bạn..." oninput="onKeyInput()" autocomplete="off" spellcheck="false">
-    <button class="btn-toggle-key" onclick="toggleKeyVisibility()" id="btn-eye" title="Hiện/ẩn key">👁</button>
-  </div>
-  <span class="api-key-hint">Lấy key miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com</a></span>
-  <span class="api-key-status" id="key-status"></span>
-</div>
-
 <div class="container">
-
-  <!-- LEFT: QUESTION LIST -->
   <div class="panel-left">
-    <div class="panel-title">Bài tập</div>
-
+    <div class="panel-title">B&agrave;i t&#7853;p</div>
     <div class="filter-tabs">
-      <button class="filter-tab active" onclick="filterQ('all',this)">Tất cả</button>
+      <button class="filter-tab active" onclick="filterQ('all',this)">T&#7845;t c&#7843;</button>
       <button class="filter-tab" onclick="filterQ('dslk',this)">DSLK</button>
       <button class="filter-tab" onclick="filterQ('stack',this)">Stack</button>
     </div>
-
     <div class="progress-section">
-      <div class="progress-top">
-        <span class="progress-label">Tiến độ</span>
-        <span class="progress-count" id="prog-count">0 / 0</span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="prog-bar" style="width:0%"></div>
-      </div>
+      <div class="progress-top"><span class="progress-label">Ti&#7871;n &#273;&#7897;</span><span class="progress-count" id="prog-count">0 / 0</span></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-bar" style="width:0%"></div></div>
     </div>
-
     <div class="q-list" id="q-list"></div>
   </div>
-
-  <!-- RIGHT: EDITOR + RESULT -->
   <div class="panel-right">
-
     <div class="q-display" id="q-display">
-      <div class="empty-state">
-        <div class="empty-icon">←</div>
-        <div class="empty-text">Chọn một bài tập để bắt đầu</div>
-      </div>
+      <div class="empty-state"><div class="empty-icon">&larr;</div><div class="empty-text">Ch&#7885;n m&#7897;t b&agrave;i t&#7853;p &#273;&#7875; b&#7855;t &#273;&#7847;u</div></div>
     </div>
-
-    <div class="editor-wrap" id="editor-wrap" style="display:none">
-      <div class="editor-header">
-        <div class="editor-title">
-          <div class="editor-dot dot-r"></div>
-          <div class="editor-dot dot-y"></div>
-          <div class="editor-dot dot-g"></div>
-          <span style="margin-left:8px">solution.cpp</span>
+    <div id="editor-section" style="display:none;flex-direction:column;gap:14px">
+      <div class="editor-wrap">
+        <div class="editor-header">
+          <div class="editor-title">
+            <div class="editor-dot dot-r"></div><div class="editor-dot dot-y"></div><div class="editor-dot dot-g"></div>
+            <span style="margin-left:8px">solution.cpp</span>
+          </div>
+          <div class="editor-actions">
+            <button class="btn-small" onclick="clearCode()">X&oacute;a</button>
+            <button class="btn-check" onclick="runCheck()">&#9654; Ch&#7845;m b&agrave;i</button>
+          </div>
         </div>
-        <div class="editor-actions">
-          <button class="btn-clear" onclick="clearCode()">Xóa</button>
-          <button class="btn-submit" id="btn-submit" onclick="submitCode()">
-            <div class="spinner"></div>
-            <span class="btn-text">▶ Chấm bài</span>
-          </button>
-        </div>
+        <textarea id="code-input" placeholder="// Paste code C++ c&#7911;a b&#7841;n v&agrave;o &#273;&acirc;y..."></textarea>
       </div>
-      <textarea id="code-input" placeholder="// Dán code C++ của bạn vào đây...
-// Ví dụ:
-void themcuoi(SList &L, int x) {
-    SNode* p = taonut(x);
-    if (L.head == nullptr)
-        L.head = L.tail = p;
-    else {
-        L.tail->next = p;
-        L.tail = p;
-    }
-}" spellcheck="false"></textarea>
+      <div class="result-panel" id="result-panel"></div>
     </div>
-
-    <div class="loading-overlay" id="loading-overlay">
-      <div class="loading-text">AI đang phân tích code của bạn...</div>
-      <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
-    </div>
-
-    <div class="result-panel" id="result-panel"></div>
-
   </div>
 </div>
-
 <script>
-// ===== QUESTION BANK =====
-const questions = [
-  // DSLK
-  {
-    id: 1, cat: 'dslk', diff: 1,
-    title: 'Thêm node vào cuối DSLK',
-    desc: 'Viết hàm <strong>themcuoi(SList &L, int x)</strong> thêm node có giá trị x vào cuối danh sách liên kết đơn. Xử lý đúng cả trường hợp danh sách rỗng.',
-    requirements: [
-      'Tạo node mới bằng hàm taonut(x)',
-      'Xử lý TH danh sách rỗng: head = tail = node mới',
-      'Xử lý TH có phần tử: tail->next = node mới, cập nhật tail',
-      'Hàm nhận SList& (tham chiếu) để thay đổi được L',
-    ],
-    sampleIn: 'L = [1→2→3], x = 4',
-    sampleOut: 'L = [1→2→3→4]',
-    evalKey: 'themcuoi_dslk'
-  },
-  {
-    id: 2, cat: 'dslk', diff: 1,
-    title: 'Đếm số phần tử DSLK',
-    desc: 'Viết hàm <strong>dempt(SList L)</strong> trả về số lượng phần tử trong danh sách liên kết đơn.',
-    requirements: [
-      'Dùng vòng lặp while duyệt từ head đến nullptr',
-      'Biến đếm tăng 1 mỗi lần qua node',
-      'Trả về 0 nếu danh sách rỗng',
-      'Không được thay đổi danh sách gốc (nhận L không phải L&)',
-    ],
-    sampleIn: 'L = [5→10→15→20]',
-    sampleOut: '4',
-    evalKey: 'dempt_dslk'
-  },
-  {
-    id: 3, cat: 'dslk', diff: 2,
-    title: 'Tính tổng số chính phương',
-    desc: 'Viết hàm <strong>tongscphuong(SList L)</strong> tính tổng các node có giá trị là số chính phương (0, 1, 4, 9, 16...). Cần viết thêm hàm kiểm tra <strong>lascphuong(int n)</strong>.',
-    requirements: [
-      'Hàm lascphuong(n): kiểm tra n >= 0 trước, dùng sqrt() và so sánh s*s == n',
-      'Include <cmath> để dùng sqrt()',
-      'Duyệt DSLK, cộng vào tổng nếu lascphuong trả true',
-      'Trả về 0 nếu không có số chính phương nào',
-    ],
-    sampleIn: 'L = [3→4→5→9→10→16]',
-    sampleOut: '29  (4+9+16)',
-    evalKey: 'tongscphuong_dslk'
-  },
-  {
-    id: 4, cat: 'dslk', diff: 2,
-    title: 'Tách DSLK thành chẵn / lẻ',
-    desc: 'Viết hàm <strong>tachcl(SList L, SList &Lc, SList &Ll)</strong> tách danh sách L thành Lc (số chẵn) và Ll (số lẻ). Cần khởi tạo Lc và Ll trước khi thêm.',
-    requirements: [
-      'Gọi khoitao(Lc) và khoitao(Ll) đầu hàm',
-      'Dùng p->data % 2 == 0 để check chẵn',
-      'Dùng themcuoi() để thêm vào từng list',
-      'Không xóa node gốc — tạo node mới hoặc copy giá trị',
-    ],
-    sampleIn: 'L = [1→2→3→4→5→6]',
-    sampleOut: 'Lc = [2→4→6]\nLl = [1→3→5]',
-    evalKey: 'tachcl_dslk'
-  },
-  {
-    id: 5, cat: 'dslk', diff: 3,
-    title: 'Đảo ngược DSLK',
-    desc: 'Viết hàm <strong>daonguoc(SList &L)</strong> đảo ngược toàn bộ danh sách liên kết đơn bằng kỹ thuật 3 con trỏ (prev, cur, nxt). Phải cập nhật lại cả head và tail.',
-    requirements: [
-      'Khai báo 3 con trỏ: prev = nullptr, cur = head, nxt = nullptr',
-      'Cập nhật L.tail = L.head trước vòng lặp',
-      'Trong vòng lặp: lưu nxt, đảo cur->next = prev, tiến prev và cur',
-      'Sau vòng lặp: L.head = prev',
-    ],
-    sampleIn: 'L = [1→2→3→4→5]',
-    sampleOut: 'L = [5→4→3→2→1]',
-    evalKey: 'daonguoc_dslk'
-  },
-  {
-    id: 6, cat: 'dslk', diff: 2,
-    title: 'Nhân đôi node chia hết cho 3',
-    desc: 'Viết hàm <strong>demvanhando(SList &L)</strong> đếm số phần tử chia hết cho 3 và nhân đôi giá trị của chúng tại chỗ. Trả về số phần tử đã nhân đôi.',
-    requirements: [
-      'Kiểm tra p->data % 3 == 0',
-      'Nhân đôi ngay tại chỗ: p->data *= 2',
-      'Đếm số node thỏa điều kiện',
-      'Trả về biến đếm',
-    ],
-    sampleIn: 'L = [3→5→6→9→10]',
-    sampleOut: 'L = [6→5→12→18→10], return 3',
-    evalKey: 'demvanhando_dslk'
-  },
-  {
-    id: 7, cat: 'dslk', diff: 2,
-    title: 'Trung bình cộng phần tử > 10',
-    desc: 'Viết hàm <strong>tblon10(SList L)</strong> tính trung bình cộng của các phần tử có giá trị lớn hơn 10. Trả về 0 nếu không có phần tử nào thỏa.',
-    requirements: [
-      'Dùng biến float tong và int dem',
-      'Điều kiện: p->data > 10',
-      'Kiểm tra dem == 0 trước khi chia để tránh lỗi',
-      'Trả về float (tong / dem)',
-    ],
-    sampleIn: 'L = [5→12→8→20→3→15]',
-    sampleOut: '15.67  ((12+20+15)/3)',
-    evalKey: 'tblon10_dslk'
-  },
-  {
-    id: 8, cat: 'dslk', diff: 3,
-    title: 'Nối 2 danh sách liên kết',
-    desc: 'Viết hàm <strong>noidslk(SList &L1, SList L2)</strong> nối L2 vào cuối L1. Xử lý đủ 3 trường hợp: L2 rỗng, L1 rỗng, cả hai đều có phần tử.',
-    requirements: [
-      'Nếu L2.head == nullptr: return ngay',
-      'Nếu L1.head == nullptr: L1 = L2, return',
-      'Trường hợp bình thường: L1.tail->next = L2.head',
-      'Cập nhật L1.tail = L2.tail sau khi nối',
-    ],
-    sampleIn: 'L1=[1→2→3], L2=[4→5→6]',
-    sampleOut: 'L1=[1→2→3→4→5→6]',
-    evalKey: 'noidslk_dslk'
-  },
-  // STACK
-  {
-    id: 9, cat: 'stack', diff: 1,
-    title: 'Cấu trúc Stack + push/pop/peek',
-    desc: 'Viết đầy đủ struct Stack và 5 hàm: <strong>khoitaoStack</strong>, <strong>rong</strong>, <strong>day</strong>, <strong>push</strong>, <strong>pop</strong>, <strong>peek</strong>.',
-    requirements: [
-      'struct Stack: mảng data[MAX] và int top',
-      'khoitaoStack: gán top = -1',
-      'rong(): return top == -1; day(): return top == MAX-1',
-      'push: tăng top trước rồi gán, pop: trả data[top] rồi giảm top',
-      'peek: trả data[top] không thay đổi top',
-    ],
-    sampleIn: 'push(1), push(2), push(3)',
-    sampleOut: 'peek()=3, pop()=3, pop()=2, rong()=false',
-    evalKey: 'stack_basic'
-  },
-  {
-    id: 10, cat: 'stack', diff: 2,
-    title: 'Chuyển cơ số thập phân → hệ a',
-    desc: 'Viết hàm <strong>chuyencosobat(int n, int a)</strong> chuyển số nguyên dương n từ hệ 10 sang hệ a (2 ≤ a ≤ 9) dùng Stack.',
-    requirements: [
-      'Dùng vòng lặp while n > 0: push(n % a), n /= a',
-      'Pop từng phần tử ra để in kết quả đúng thứ tự',
-      'Không cần xử lý n=0 riêng (thường đề cho n > 0)',
-    ],
-    sampleIn: 'n=13, a=2',
-    sampleOut: '1101',
-    evalKey: 'cosobat_stack'
-  },
-  {
-    id: 11, cat: 'stack', diff: 2,
-    title: 'Kiểm tra ngoặc hợp lệ',
-    desc: 'Viết hàm <strong>kiemtrangoac(string s)</strong> dùng Stack kiểm tra tính hợp lệ của chuỗi ngoặc gồm (), [], {}. Trả về bool.',
-    requirements: [
-      'Gặp ngoặc mở (, [, { → push vào stack',
-      'Gặp ngoặc đóng: check stack rỗng → false; check top có khớp không',
-      'Nếu khớp: pop; nếu không khớp: return false',
-      'Cuối chuỗi: return rong(stack)',
-    ],
-    sampleIn: '"()[()(())]"',
-    sampleOut: 'true\n"([)]" → false',
-    evalKey: 'ngoac_stack'
-  },
-  {
-    id: 12, cat: 'stack', diff: 3,
-    title: 'Chuyển Infix → Postfix',
-    desc: 'Viết hàm <strong>infixToPostfix(string bt)</strong> chuyển biểu thức trung tố sang hậu tố dùng Stack. Xử lý các toán tử +, -, *, / và ngoặc ().',
-    requirements: [
-      'Hàm uutien(char c): +- trả 1, */ trả 2, ( trả 0',
-      'Toán hạng (isdigit/isalpha): in ra ngay',
-      'Gặp (: push. Gặp ): pop in đến khi gặp (, bỏ (',
-      'Gặp toán tử: pop in các toán tử có ưu tiên >= hiện tại, rồi push',
-      'Hết chuỗi: pop tất cả stack ra in',
-    ],
-    sampleIn: '"(2*3-4+2)/(4-2)"',
-    sampleOut: '"2 3 * 4 - 2 + 4 2 - /"',
-    evalKey: 'infix_postfix_stack'
-  },
-  {
-    id: 13, cat: 'stack', diff: 3,
-    title: 'Tính giá trị biểu thức Postfix',
-    desc: 'Viết hàm <strong>tinhPostfix(string bt)</strong> tính giá trị biểu thức hậu tố dùng Stack số thực. Hàm trả về float.',
-    requirements: [
-      'Dùng stack float (không dùng stack int)',
-      'Gặp chữ số: push (chú ý chuyển char→số: c-\'0\')',
-      'Gặp toán tử: pop b trước, pop a sau, tính a op b rồi push lại',
-      'Chú ý thứ tự: b = pop() trước, a = pop() sau',
-      'Kết quả cuối = stack[top]',
-    ],
-    sampleIn: '"8 2 3 * - 5 4 + * 3 /"',
-    sampleOut: '6',
-    evalKey: 'tinh_postfix_stack'
-  },
+
+// BÀI MẪU — ẨN, NGƯỜI DÙNG KHÔNG THẤY
+const REF = {
+  1:`void themcuoi(SList &l,int x){SNode*p=taonut(x);if(l.head==nullptr)l.head=l.tail=p;else{l.tail->next=p;l.tail=p;}}`,
+  2:`int dempt(SList l){int dem=0;SNode*p=l.head;while(p!=nullptr){dem++;p=p->next;}return dem;}`,
+  3:`bool lascphuong(int n){if(n<0)return false;int s=(int)sqrt((double)n);return s*s==n;}
+int tongscphuong(SList l){int tong=0;SNode*p=l.head;while(p!=nullptr){if(lascphuong(p->data))tong+=p->data;p=p->next;}return tong;}`,
+  4:`void tachcl(SList l,SList &lc,SList &ll){khoitao(lc);khoitao(ll);SNode*p=l.head;while(p!=nullptr){if(p->data%2==0)themcuoi(lc,p->data);else themcuoi(ll,p->data);p=p->next;}}`,
+  5:`void daonguoc(SList &l){SNode*prev=nullptr;SNode*cur=l.head;SNode*nxt=nullptr;l.tail=l.head;while(cur!=nullptr){nxt=cur->next;cur->next=prev;prev=cur;cur=nxt;}l.head=prev;}`,
+  6:`int demvanhando(SList &l){int dem=0;SNode*p=l.head;while(p!=nullptr){if(p->data%3==0){p->data*=2;dem++;}p=p->next;}return dem;}`,
+  7:`float tblon10(SList l){float tong=0;int dem=0;SNode*p=l.head;while(p!=nullptr){if(p->data>10){tong+=p->data;dem++;}p=p->next;}if(dem==0)return 0;return tong/dem;}`,
+  8:`void noidslk(SList &l1,SList l2){if(l2.head==nullptr)return;if(l1.head==nullptr){l1=l2;return;}l1.tail->next=l2.head;l1.tail=l2.tail;}`,
+  9:`#define MAX 100
+struct Stack{int data[MAX];int top;};
+void khoitaostack(Stack &s){s.top=-1;}
+bool rong(Stack s){return s.top==-1;}
+bool day(Stack s){return s.top==MAX-1;}
+void push(Stack &s,int x){if(!day(s))s.data[++s.top]=x;}
+int pop(Stack &s){return s.data[s.top--];}
+int peek(Stack s){return s.data[s.top];}`,
+  10:`void chuyencosobat(int n,int a){Stack s;khoitaostack(s);while(n>0){push(s,n%a);n/=a;}while(!rong(s))cout<<pop(s);cout<<endl;}`,
+  11:`bool kiemtrangoac(string st){Stack s;khoitaostack(s);for(int i=0;i<st.size();i++){char c=st[i];if(c=='('||c=='['||c=='{')push(s,c);else if(c==')'||c==']'||c=='}'){if(rong(s))return false;char top=peek(s);if((c==')'&&top=='(')||(c==']'&&top=='[')||(c=='}'&&top=='{'))pop(s);else return false;}}return rong(s);}`,
+  12:`int uutien(char c){if(c=='+'||c=='-')return 1;if(c=='*'||c=='/')return 2;return 0;}
+void infixtopostfix(string bt){Stack s;khoitaostack(s);for(int i=0;i<bt.size();i++){char c=bt[i];if(isdigit(c)||isalpha(c))cout<<c<<' ';else if(c=='(')push(s,c);else if(c==')'){while(!rong(s)&&peek(s)!='(')cout<<pop(s)<<' ';if(!rong(s))pop(s);}else{while(!rong(s)&&uutien(peek(s))>=uutien(c))cout<<pop(s)<<' ';push(s,c);}}while(!rong(s))cout<<pop(s)<<' ';}`,
+  13:`float tinhpostfix(string bt){Stack s;khoitaostack(s);for(int i=0;i<bt.size();i++){char c=bt[i];if(isdigit(c))push(s,c-'0');else if(c=='+'||c=='-'||c=='*'||c=='/'){float b=pop(s);float a=pop(s);if(c=='+')push(s,a+b);else if(c=='-')push(s,a-b);else if(c=='*')push(s,a*b);else push(s,a/b);}}return peek(s);}`
+};
+
+const questions=[
+  {id:1,cat:'dslk',diff:1,title:'Thêm node vào cuối DSLK',
+   desc:'Viết hàm <strong>themcuoi(SList &amp;L, int x)</strong> thêm node có giá trị x vào cuối danh sách liên kết đơn. Xử lý đúng cả trường hợp danh sách rỗng.',
+   req:['Tạo node mới bằng hàm taonut(x)','Xử lý TH danh sách rỗng: head = tail = node mới','Xử lý TH có phần tử: tail->next = node mới, cập nhật tail','Hàm nhận SList& (tham chiếu) để thay đổi được L'],
+   si:'L = [1→2→3], x = 4',so:'L = [1→2→3→4]'},
+  {id:2,cat:'dslk',diff:1,title:'Đếm số phần tử DSLK',
+   desc:'Viết hàm <strong>dempt(SList L)</strong> trả về số lượng phần tử trong danh sách liên kết đơn.',
+   req:['Dùng vòng lặp while duyệt từ head đến nullptr','Biến đếm tăng 1 mỗi lần qua node','Trả về 0 nếu danh sách rỗng','Không được thay đổi danh sách gốc'],
+   si:'L = [5→10→15→20]',so:'4'},
+  {id:3,cat:'dslk',diff:2,title:'Tính tổng số chính phương',
+   desc:'Viết hàm <strong>tongscphuong(SList L)</strong> tính tổng các node có giá trị là số chính phương. Cần viết thêm hàm <strong>lascphuong(int n)</strong>.',
+   req:['Hàm lascphuong(n): kiểm tra n >= 0, dùng sqrt() so sánh s*s == n','Include &lt;cmath&gt; để dùng sqrt()','Duyệt DSLK, cộng vào tổng nếu lascphuong trả true','Trả về 0 nếu không có số chính phương nào'],
+   si:'L = [3→4→5→9→10→16]',so:'29  (4+9+16)'},
+  {id:4,cat:'dslk',diff:2,title:'Tách DSLK thành chẵn / lẻ',
+   desc:'Viết hàm <strong>tachcl(SList L, SList &amp;Lc, SList &amp;Ll)</strong> tách danh sách L thành Lc (số chẵn) và Ll (số lẻ).',
+   req:['Gọi khoitao(Lc) và khoitao(Ll) đầu hàm','Dùng p->data % 2 == 0 để check chẵn','Dùng themcuoi() để thêm vào từng list','Không xóa node gốc — copy giá trị'],
+   si:'L = [1→2→3→4→5→6]',so:'Lc = [2→4→6]\nLl = [1→3→5]'},
+  {id:5,cat:'dslk',diff:3,title:'Đảo ngược DSLK',
+   desc:'Viết hàm <strong>daonguoc(SList &amp;L)</strong> đảo ngược toàn bộ danh sách liên kết đơn bằng kỹ thuật 3 con trỏ (prev, cur, nxt).',
+   req:['Khai báo 3 con trỏ: prev = nullptr, cur = head, nxt = nullptr','Cập nhật L.tail = L.head trước vòng lặp','Trong vòng lặp: lưu nxt, đảo cur->next = prev, tiến prev và cur','Sau vòng lặp: L.head = prev'],
+   si:'L = [1→2→3→4→5]',so:'L = [5→4→3→2→1]'},
+  {id:6,cat:'dslk',diff:2,title:'Nhân đôi node chia hết cho 3',
+   desc:'Viết hàm <strong>demvanhando(SList &amp;L)</strong> đếm số phần tử chia hết cho 3 và nhân đôi giá trị của chúng tại chỗ. Trả về số phần tử đã nhân đôi.',
+   req:['Kiểm tra p->data % 3 == 0','Nhân đôi ngay tại chỗ: p->data *= 2','Đếm số node thỏa điều kiện','Trả về biến đếm'],
+   si:'L = [3→5→6→9→10]',so:'L = [6→5→12→18→10], return 3'},
+  {id:7,cat:'dslk',diff:2,title:'Trung bình cộng phần tử > 10',
+   desc:'Viết hàm <strong>tblon10(SList L)</strong> tính trung bình cộng của các phần tử có giá trị lớn hơn 10. Trả về 0 nếu không có.',
+   req:['Dùng biến float tong và int dem','Điều kiện: p->data > 10','Kiểm tra dem == 0 trước khi chia để tránh lỗi','Trả về float (tong / dem)'],
+   si:'L = [5→12→8→20→3→15]',so:'15.67  ((12+20+15)/3)'},
+  {id:8,cat:'dslk',diff:3,title:'Nối 2 danh sách liên kết',
+   desc:'Viết hàm <strong>noidslk(SList &amp;L1, SList L2)</strong> nối L2 vào cuối L1. Xử lý đủ 3 trường hợp.',
+   req:['Nếu L2.head == nullptr: return ngay','Nếu L1.head == nullptr: L1 = L2, return','Trường hợp bình thường: L1.tail->next = L2.head','Cập nhật L1.tail = L2.tail sau khi nối'],
+   si:'L1=[1→2→3], L2=[4→5→6]',so:'L1=[1→2→3→4→5→6]'},
+  {id:9,cat:'stack',diff:1,title:'Cấu trúc Stack + push/pop/peek',
+   desc:'Viết đầy đủ <strong>struct Stack</strong> và các hàm: khoitaoStack, rong, day, push, pop, peek.',
+   req:['struct Stack: mảng data[MAX] và int top','khoitaoStack: gán top = -1','rong(): top == -1; day(): top == MAX-1','push: ++top rồi gán; pop: trả data[top--]','peek: trả data[top] không đổi top'],
+   si:'push(1), push(2), push(3)',so:'peek()=3, pop()=3, pop()=2, rong()=false'},
+  {id:10,cat:'stack',diff:2,title:'Chuyển cơ số thập phân → hệ a',
+   desc:'Viết hàm <strong>chuyencosobat(int n, int a)</strong> chuyển số nguyên dương n từ hệ 10 sang hệ a (2 ≤ a ≤ 9) dùng Stack.',
+   req:['Vòng lặp while n > 0: push(n % a), n /= a','Pop từng phần tử ra để in kết quả đúng thứ tự'],
+   si:'n=13, a=2',so:'1101'},
+  {id:11,cat:'stack',diff:2,title:'Kiểm tra ngoặc hợp lệ',
+   desc:'Viết hàm <strong>kiemtrangoac(string s)</strong> dùng Stack kiểm tra tính hợp lệ của chuỗi ngoặc gồm (), [], {}. Trả về bool.',
+   req:['Gặp ngoặc mở (, [, { → push vào stack','Gặp ngoặc đóng: check rỗng → false; check khớp','Nếu khớp: pop; nếu không: return false','Cuối chuỗi: return rong(stack)'],
+   si:'"()[()(())]"',so:'true\n"([)]" → false'},
+  {id:12,cat:'stack',diff:3,title:'Chuyển Infix → Postfix',
+   desc:'Viết hàm <strong>infixToPostfix(string bt)</strong> chuyển biểu thức trung tố sang hậu tố dùng Stack.',
+   req:['Hàm uutien(char c): +- trả 1, */ trả 2, ( trả 0','Toán hạng (isdigit/isalpha): in ra ngay','Gặp (: push. Gặp ): pop in đến khi gặp (, bỏ (','Gặp toán tử: pop in ưu tiên >= hiện tại, rồi push','Hết chuỗi: pop tất cả ra in'],
+   si:'"(2*3-4+2)/(4-2)"',so:'"2 3 * 4 - 2 + 4 2 - /"'},
+  {id:13,cat:'stack',diff:3,title:'Tính giá trị biểu thức Postfix',
+   desc:"Viết hàm <strong>tinhPostfix(string bt)</strong> tính giá trị biểu thức hậu tố dùng Stack số thực.",
+   req:["Dùng stack float (không dùng stack int)","Gặp chữ số: push (chuyển char→số: c-'0')","Gặp toán tử: pop b trước, pop a sau, tính a op b rồi push","Chú ý thứ tự: b = pop() trước, a = pop() sau"],
+   si:'"8 2 3 * - 5 4 + * 3 /"',so:'6'}
 ];
 
-// ===== STATE =====
-let currentQ = null;
-let results = {};
-let currentFilter = 'all';
+// RUBRICS
+const RUB={
+  1:[
+    {l:'Tạo node mới (new/taonut)',t:c=>/\bnew\b|\btaonut\b/.test(c),w:20},
+    {l:'Nhận tham chiếu SList&',t:c=>/&/.test(c),w:15},
+    {l:'Xử lý danh sách rỗng (head=tail=p)',t:c=>/head\s*=/.test(c)&&/tail\s*=/.test(c),w:25},
+    {l:'Gán tail->next = node mới',t:c=>/tail\s*->\s*next\s*=/.test(c),w:25},
+    {l:'Cập nhật tail = p',t:c=>/tail\s*=\s*p/.test(c),w:15}
+  ],
+  2:[
+    {l:'Vòng lặp while',t:c=>/\bwhile\b/.test(c),w:30},
+    {l:'Duyệt qua ->next',t:c=>/->\s*next/.test(c),w:25},
+    {l:'Biến đếm tăng (++)',t:c=>/\+\+|dem\s*\+/.test(c),w:25},
+    {l:'Return kết quả đếm',t:c=>/\breturn\b/.test(c),w:20}
+  ],
+  3:[
+    {l:'Dùng sqrt()',t:c=>/\bsqrt\b/.test(c),w:25},
+    {l:'Điều kiện n >= 0',t:c=>/>=\s*0/.test(c),w:20},
+    {l:'So sánh s*s == n',t:c=>/\*/.test(c)&&/==/.test(c),w:25},
+    {l:'Tích lũy tổng (+=)',t:c=>/\+=/.test(c)||/tong\s*=\s*tong/.test(c),w:30}
+  ],
+  4:[
+    {l:'Khởi tạo 2 list con (khoitao)',t:c=>/khoitao/.test(c),w:20},
+    {l:'Kiểm tra chẵn (% 2 == 0)',t:c=>/%\s*2/.test(c),w:30},
+    {l:'Thêm vào cuối (themcuoi)',t:c=>/themcuoi/.test(c),w:25},
+    {l:'Duyệt toàn bộ (while + ->next)',t:c=>/\bwhile\b/.test(c)&&/->\s*next/.test(c),w:25}
+  ],
+  5:[
+    {l:'3 con trỏ (prev/cur/nxt)',t:c=>{const m=c.match(/\b[a-z_]\w*\s*=\s*nullptr/gi)||[];return m.length>=2||(/prev/.test(c)&&/cur/.test(c));},w:30},
+    {l:'Khởi tạo nullptr',t:c=>/nullptr|NULL/.test(c),w:20},
+    {l:'Đảo cur->next = prev',t:c=>/->\s*next\s*=/.test(c),w:30},
+    {l:'Cập nhật head sau vòng lặp',t:c=>/head\s*=/.test(c),w:20}
+  ],
+  6:[
+    {l:'Kiểm tra chia hết 3 (% 3)',t:c=>/%\s*3/.test(c),w:30},
+    {l:'Nhân đôi (*= 2 hoặc * 2)',t:c=>/\*=\s*2|\*\s*2/.test(c),w:35},
+    {l:'Biến đếm (++)',t:c=>/\+\+/.test(c),w:20},
+    {l:'Return đếm',t:c=>/\breturn\b/.test(c),w:15}
+  ],
+  7:[
+    {l:'Điều kiện > 10',t:c=>/>\s*10/.test(c),w:25},
+    {l:'Biến float tổng',t:c=>/\bfloat\b/.test(c),w:25},
+    {l:'Tránh chia 0 (dem == 0)',t:c=>/==\s*0/.test(c),w:25},
+    {l:'Return float (tong/dem)',t:c=>/\breturn\b/.test(c)&&/\//.test(c),w:25}
+  ],
+  8:[
+    {l:'Kiểm tra L2 rỗng → return',t:c=>/nullptr|NULL/.test(c)&&/\breturn\b/.test(c),w:25},
+    {l:'Kiểm tra L1 rỗng',t:c=>(c.match(/nullptr|NULL/g)||[]).length>=2,w:20},
+    {l:'tail->next = head list kia',t:c=>/tail\s*->\s*next/.test(c),w:30},
+    {l:'Cập nhật tail sau nối',t:c=>/tail\s*=/.test(c),w:25}
+  ],
+  9:[
+    {l:'struct Stack + data[MAX] + top',t:c=>/\bstruct\b/.test(c)&&/\bdata\b/.test(c)&&/\btop\b/.test(c),w:20},
+    {l:'Khởi tạo top = -1',t:c=>/top\s*=\s*-1/.test(c),w:20},
+    {l:'push (++top)',t:c=>/\+\+\s*top|top\s*\+\+/.test(c),w:20},
+    {l:'pop (top--)',t:c=>/top--/.test(c)||/--\s*top/.test(c),w:20},
+    {l:'peek (data[top])',t:c=>/data\s*\[\s*\w+\s*top/.test(c)||/peek/.test(c),w:20}
+  ],
+  10:[
+    {l:'while n > 0',t:c=>/while\s*\(\s*n\s*>\s*0/.test(c),w:30},
+    {l:'push(n % a)',t:c=>/push/.test(c)&&/%/.test(c),w:35},
+    {l:'n /= a',t:c=>/n\s*\/=/.test(c)||/n\s*=\s*n\s*\//.test(c),w:20},
+    {l:'Pop để in kết quả',t:c=>/pop/.test(c),w:15}
+  ],
+  11:[
+    {l:'Push khi gặp ngoặc mở',t:c=>/push/.test(c),w:25},
+    {l:'Kiểm tra rỗng → false',t:c=>/rong|empty/.test(c)&&/false/.test(c),w:25},
+    {l:'So sánh khớp ngoặc (pop + ==)',t:c=>/==/.test(c)&&/pop/.test(c),w:25},
+    {l:'Return rong() ở cuối',t:c=>/return\s*(rong|empty)/.test(c),w:25}
+  ],
+  12:[
+    {l:'Hàm ưu tiên (uutien)',t:c=>/uutien|priority/i.test(c),w:20},
+    {l:'isdigit / isalpha',t:c=>/isdigit|isalpha/.test(c),w:20},
+    {l:"Xử lý ngoặc '(' và ')'",t:c=>/'\(\)?'|==\s*'\('|==\s*'\)'/.test(c)||/ngoac|paren|\(/.test(c),w:25},
+    {l:'So sánh ưu tiên >= rồi pop',t:c=>/>=/.test(c)&&/pop/.test(c),w:20},
+    {l:'Pop hết sau khi duyệt xong',t:c=>/while.*rong|while.*empty|while.*!rong/i.test(c.replace(/\n/g,' ')),w:15}
+  ],
+  13:[
+    {l:'Stack float',t:c=>/\bfloat\b/.test(c),w:20},
+    {l:"Chuyển char → số (c - '0')",t:c=>/-\s*'0'/.test(c),w:25},
+    {l:'pop 2 lần (b trước, a sau)',t:c=>(c.match(/\bpop\b/g)||[]).length>=2,w:30},
+    {l:'Tính a op b rồi push lại',t:c=>/push/.test(c),w:25}
+  ]
+};
 
-// ===== RENDER QUESTIONS =====
-function renderQuestions() {
-  const list = document.getElementById('q-list');
-  const filtered = questions.filter(q => currentFilter === 'all' || q.cat === currentFilter);
-  
-  list.innerHTML = filtered.map(q => {
-    const status = results[q.id];
-    let statusIcon = '';
-    let cardClass = '';
-    if (status === 'correct') { statusIcon = '✅'; cardClass = 'done-correct'; }
-    else if (status === 'partial') { statusIcon = '🟡'; cardClass = 'done-wrong'; }
-    else if (status === 'wrong') { statusIcon = '❌'; cardClass = 'done-wrong'; }
-    
-    const stars = '★'.repeat(q.diff) + '☆'.repeat(3 - q.diff);
-    const catLabel = {dslk:'DSLK', stack:'Stack', avl:'AVL', hash:'Hash'}[q.cat];
-    const tagClass = 'tag-' + q.cat;
+// Chỉ lấy tên HÀM được gọi/định nghĩa (vd: taonut, themcuoi, push, sqrt)
+// và tên THUỘC TÍNH truy cập qua . hoặc -> (vd: head, tail, next, data, top).
+// Đây là phần "API cố định" của đề bài — bắt buộc phải đúng tên.
+// Biến cục bộ tự đặt (dem, tong, p, cur, prev, nxt, s, i...) KHÔNG bị so khớp,
+// vì đó là phong cách viết của riêng từng người, không phải yêu cầu của đề.
+const CTRL_KW=new Set(['if','while','for','switch','return','else','catch','sizeof','define','main']);
+function apiTokens(code){
+  const c=code.replace(/\/\/[^\n]*/g,'').replace(/\/\*[\s\S]*?\*\//g,'');
+  const out=new Set();
+  let m;
+  const callRe=/\b([a-zA-Z_]\w*)\s*\(/g;
+  while((m=callRe.exec(c))){
+    const t=m[1].toLowerCase();
+    if(!CTRL_KW.has(t))out.add(t);
+  }
+  const memRe=/(?:->|\.)\s*([a-zA-Z_]\w*)/g;
+  while((m=memRe.exec(c))){
+    out.add(m[1].toLowerCase());
+  }
+  return out;
+}
+function structOf(code){
+  const c=code.replace(/\/\/[^\n]*/g,'').replace(/\/\*[\s\S]*?\*\//g,'');
+  return{
+    while:/\bwhile\b/.test(c),for:/\bfor\b/.test(c),if:/\bif\b/.test(c),
+    ret:/\breturn\b/.test(c),null_:/nullptr|NULL/.test(c),
+    arrow:/->/.test(c),ref:/&/.test(c),float:/\bfloat\b|\bdouble\b/.test(c),
+    struct:/\bstruct\b/.test(c),
+    lines:c.split('\n').filter(l=>l.trim()).length
+  };
+}
 
-    return `<div class="q-card ${cardClass} ${currentQ?.id === q.id ? 'active' : ''}" onclick="selectQ(${q.id})">
+let CQ=null,results={},filter='all';
+
+function renderQ(){
+  const list=document.getElementById('q-list');
+  const filtered=questions.filter(q=>filter==='all'||q.cat===filter);
+  list.innerHTML=filtered.map(q=>{
+    const r=results[q.id];
+    let si='',cc='';
+    if(r==='ok'){si='✅';cc='done-ok';}
+    else if(r==='partial'){si='🟡';cc='done-partial';}
+    else if(r==='fail'){si='❌';cc='done-fail';}
+    const stars='★'.repeat(q.diff)+'☆'.repeat(3-q.diff);
+    const cl={dslk:'DSLK',stack:'Stack'}[q.cat];
+    return`<div class="q-card ${cc} ${CQ?.id===q.id?'active':''}" onclick="selQ(${q.id})">
       <div class="q-card-header">
-        <span class="q-tag ${tagClass}">${catLabel}</span>
-        <span class="q-status">${statusIcon || `<span style="color:var(--text3);font-size:11px;font-family:var(--mono)">${stars}</span>`}</span>
+        <span class="q-tag tag-${q.cat}">${cl}</span>
+        <span class="q-status">${si||`<span style="color:var(--text3);font-size:11px;font-family:var(--mono)">${stars}</span>`}</span>
       </div>
       <div class="q-title">Bài ${q.id}. ${q.title}</div>
       <div class="q-meta">Độ khó: ${stars}</div>
     </div>`;
   }).join('');
-
-  updateProgress();
+  const done=Object.keys(results).length,total=questions.length;
+  document.getElementById('prog-count').textContent=`${done} / ${total}`;
+  document.getElementById('prog-bar').style.width=`${total?(done/total)*100:0}%`;
 }
 
-function updateProgress() {
-  const done = Object.keys(results).length;
-  const total = questions.length;
-  document.getElementById('prog-count').textContent = `${done} / ${total}`;
-  document.getElementById('prog-bar').style.width = `${(done/total)*100}%`;
-}
-
-function filterQ(cat, btn) {
-  currentFilter = cat;
-  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+function filterQ(cat,btn){
+  filter=cat;
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  renderQuestions();
+  renderQ();
 }
 
-// ===== SELECT QUESTION =====
-function selectQ(id) {
-  currentQ = questions.find(q => q.id === id);
-  renderQuestions();
-  
-  document.getElementById('editor-wrap').style.display = 'flex';
-  document.getElementById('editor-wrap').style.flexDirection = 'column';
-  document.getElementById('result-panel').className = 'result-panel';
-  document.getElementById('loading-overlay').className = 'loading-overlay';
-  document.getElementById('code-input').value = '';
-
-  const q = currentQ;
-  const catLabel = {dslk:'DSLK', stack:'Stack', avl:'AVL', hash:'Hash'}[q.cat];
-  const tagClass = 'tag-' + q.cat;
-  const stars = '★'.repeat(q.diff) + '☆'.repeat(3 - q.diff);
-
-  document.getElementById('q-display').innerHTML = `
-    <div class="q-display-num">
-      <span class="q-tag ${tagClass}" style="margin-right:8px">${catLabel}</span>
-      Bài ${q.id} &nbsp;·&nbsp; Độ khó: ${stars}
-    </div>
+function selQ(id){
+  CQ=questions.find(q=>q.id===id);
+  renderQ();
+  const q=CQ;
+  const cl={dslk:'DSLK',stack:'Stack'}[q.cat];
+  const stars='★'.repeat(q.diff)+'☆'.repeat(3-q.diff);
+  document.getElementById('q-display').innerHTML=`
+    <div class="q-display-num"><span class="q-tag tag-${q.cat}" style="margin-right:8px">${cl}</span>Bài ${q.id} &nbsp;·&nbsp; Độ khó: ${stars}</div>
     <div class="q-display-title">${q.title}</div>
     <div class="q-display-desc">${q.desc}</div>
-
     <div class="requirement-box">
       <div class="req-label">Yêu cầu cần đạt</div>
-      <ul class="req-list">
-        ${q.requirements.map(r => `<li>${r}</li>`).join('')}
-      </ul>
+      <ul class="req-list">${q.req.map(r=>`<li>${r}</li>`).join('')}</ul>
     </div>
-
     <div class="sample-io">
-      <div class="io-box">
-        <div class="io-label in">Input mẫu</div>
-        <div class="io-content">${q.sampleIn}</div>
-      </div>
-      <div class="io-box">
-        <div class="io-label out">Output mẫu</div>
-        <div class="io-content">${q.sampleOut}</div>
-      </div>
-    </div>
-  `;
-  
-  // Scroll to editor
-  document.getElementById('editor-wrap').scrollIntoView({behavior:'smooth', block:'nearest'});
+      <div class="io-box"><div class="io-label in">Input mẫu</div><div class="io-content">${q.si}</div></div>
+      <div class="io-box"><div class="io-label out">Output mẫu</div><div class="io-content">${q.so}</div></div>
+    </div>`;
+  const sec=document.getElementById('editor-section');
+  sec.style.display='flex';sec.style.flexDirection='column';
+  document.getElementById('result-panel').className='result-panel';
+  document.getElementById('code-input').value='';
+  sec.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-// ===== API KEY HELPERS =====
-const STORAGE_KEY = 'ctdlgt_gemini_key';
-
-function getApiKey() {
-  return document.getElementById('api-key-input').value.trim();
+function clearCode(){
+  document.getElementById('code-input').value='';
+  document.getElementById('result-panel').className='result-panel';
 }
 
-function onKeyInput() {
-  const key = getApiKey();
-  const status = document.getElementById('key-status');
-  if (key.length > 20) {
-    status.textContent = '✓ Đã lưu';
-    status.className = 'api-key-status ok';
-    localStorage.setItem(STORAGE_KEY, key);
-  } else if (key.length > 0) {
-    status.textContent = '⚠ Key quá ngắn';
-    status.className = 'api-key-status missing';
-    localStorage.removeItem(STORAGE_KEY);
-  } else {
-    status.textContent = '';
-    status.className = 'api-key-status';
-    localStorage.removeItem(STORAGE_KEY);
-  }
-}
+function runCheck(){
+  const mine=document.getElementById('code-input').value.trim();
+  if(!mine){alert('Bạn chưa nhập code!');return;}
+  if(!CQ)return;
+  const ref=REF[CQ.id]||'';
+  const rub=RUB[CQ.id]||[];
+  const mL=mine.toLowerCase();
 
-function loadSavedKey() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    document.getElementById('api-key-input').value = saved;
-    onKeyInput();
-  }
-}
+  // 1. Rubric
+  const rr=rub.map(r=>({l:r.l,hit:r.t(mL),w:r.w}));
+  const tw=rub.reduce((s,r)=>s+r.w,0);
+  const gw=rr.filter(r=>r.hit).reduce((s,r)=>s+r.w,0);
+  let score=tw?Math.round(gw/tw*100):50;
 
-function toggleKeyVisibility() {
-  const input = document.getElementById('api-key-input');
-  input.type = input.type === 'password' ? 'text' : 'password';
-}
-
-// ===== SUBMIT CODE =====
-async function submitCode() {
-  const code = document.getElementById('code-input').value.trim();
-  if (!code) { alert('Bạn chưa nhập code!'); return; }
-  if (!currentQ) return;
-
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    alert('Vui lòng nhập Gemini API key trước khi chấm bài!\nLấy key miễn phí tại: https://aistudio.google.com/apikey');
-    document.getElementById('api-key-input').focus();
-    return;
+  // 2. Struct diff
+  const sm=structOf(ref),ss=structOf(mine);
+  const SK=['while','for','if','ret','null_','arrow','ref','float','struct'];
+  const SL={while:'while loop',for:'for loop',if:'if/else',ret:'return',null_:'nullptr/NULL',arrow:'->',ref:'& tham chiếu',float:'float/double',struct:'struct'};
+  const sc=SK.filter(k=>sm[k]).map(k=>({l:SL[k],ok:ss[k]===sm[k]}));
+  if(sc.length>0){
+    const sr=sc.filter(s=>s.ok).length/sc.length;
+    score=Math.round(score*0.65+sr*100*0.35);
   }
 
-  const btn = document.getElementById('btn-submit');
-  btn.disabled = true;
-  btn.classList.add('loading');
-  document.getElementById('loading-overlay').className = 'loading-overlay show';
-  document.getElementById('result-panel').className = 'result-panel';
+  // 3. Token diff — chỉ so khớp hàm/thuộc tính API cố định với bài mẫu
+  const tr=apiTokens(ref),tm=apiTokens(mine);
+  const SKIP=new Set(['','int','void','bool','char','string','if','else','while','for','return','true','false','include','using','namespace','std','cout','cin','endl','struct','new','delete','nullptr','null','main','i','j','k','n','x','a','b','c','l','p','s','0','1','2','3']);
+  const ok=t=>t.length>=2&&!SKIP.has(t)&&!/^\d+$/.test(t);
+  const matchT=[...tr].filter(t=>ok(t)&&tm.has(t)).slice(0,28);
+  const missT=[...tr].filter(t=>ok(t)&&!tm.has(t)).slice(0,18);
 
-  const systemPrompt = `Bạn là một giáo viên chấm bài lập trình C++ môn Cấu trúc dữ liệu và giải thuật (CTDLGT) tại HUIT. 
-Nhiệm vụ: Đọc code C++ của sinh viên và chấm điểm theo rubric được cung cấp.
-Trả lời CHÍNH XÁC theo định dạng JSON sau, không thêm gì khác:
-{
-  "verdict": "correct" | "partial" | "wrong",
-  "score": <số từ 0-100>,
-  "simulatedOutput": "<output giả lập nếu code chạy>",
-  "checks": [
-    {"label": "<tên tiêu chí>", "status": "ok"|"warn"|"fail", "note": "<giải thích ngắn>"}
-  ],
-  "summary": "<nhận xét tổng thể 2-3 câu>",
-  "suggestion": "<gợi ý sửa lỗi nếu có, hoặc lời khen nếu đúng>"
-}
-Chỉ trả về JSON, không markdown, không giải thích thêm.`;
+  score=Math.max(0,Math.min(100,score));
+  let verdict,vc,vi,vl;
+  if(score>=80){verdict='ok';vc='verdict-ok';vi='✅';vl='Đạt yêu cầu';}
+  else if(score>=45){verdict='partial';vc='verdict-partial';vi='🟡';vl='Đúng một phần';}
+  else{verdict='fail';vc='verdict-fail';vi='❌';vl='Chưa đạt';}
+  results[CQ.id]=verdict;
+  renderQ();
 
-  const userPrompt = buildPrompt(currentQ, code);
+  const rubH=`<div class="result-section">
+    <div class="rs-header" style="color:var(--accent2)">📋 Checklist tiêu chí</div>
+    <div class="checklist">${rr.map(r=>`<div class="check-item">
+      <span class="check-icon ${r.hit?'c-ok':'c-fail'}">${r.hit?'✓':'✗'}</span>
+      <span><strong style="color:var(--text)">${r.l}</strong> <span style="color:var(--text3)">(${r.w}đ)</span>
+      ${r.hit?'<span style="color:var(--green)"> — có trong code</span>':'<span style="color:var(--red)"> — chưa tìm thấy</span>'}
+      </span></div>`).join('')}</div></div>`;
 
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt }] },
-          contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-          generationConfig: { maxOutputTokens: 1500, temperature: 0.2 }
-        })
-      }
-    );
+  const structH=sc.length?`<div class="result-section">
+    <div class="rs-header" style="color:var(--blue)">🔍 So sánh cấu trúc với bài mẫu</div>
+    <div class="checklist">${sc.map(s=>`<div class="check-item">
+      <span class="check-icon ${s.ok?'c-ok':'c-fail'}">${s.ok?'✓':'✗'}</span>
+      <span><strong style="color:var(--text)">${s.l}</strong>
+      ${s.ok?'<span style="color:var(--green)"> — khớp</span>':'<span style="color:var(--red)"> — bài mẫu có, bài bạn chưa có</span>'}
+      </span></div>`).join('')}</div></div>`:'';
 
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      const errMsg = errData?.error?.message || `HTTP ${response.status}`;
-      // Friendly error for common issues
-      if (response.status === 400 && errMsg.includes('API_KEY')) {
-        throw new Error('API key không hợp lệ. Vui lòng kiểm tra lại key tại aistudio.google.com');
-      } else if (response.status === 403) {
-        throw new Error('API key bị từ chối. Hãy kiểm tra lại quyền truy cập tại Google AI Studio.');
-      } else if (response.status === 429) {
-        throw new Error('Quá nhiều yêu cầu. Vui lòng chờ một lúc rồi thử lại.');
-      }
-      throw new Error(errMsg);
-    }
+  const tokenH=(matchT.length||missT.length)?`<div class="result-section">
+    <div class="rs-header" style="color:var(--pink)">🧩 Hàm & thuộc tính dùng đúng API</div>
+    <div class="token-diff-wrap">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:-2px">Chỉ so khớp tên hàm gọi và thuộc tính (head, tail, next, data...) — biến bạn tự đặt tên không bị tính.</div>
+      ${matchT.length?`<div><div class="diff-col-title">✓ Có trong bài bạn</div><div class="token-list">${matchT.map(t=>`<span class="token match">${t}</span>`).join('')}</div></div>`:''}
+      ${missT.length?`<div><div class="diff-col-title">✗ Bài mẫu có, bài bạn chưa có</div><div class="token-list">${missT.map(t=>`<span class="token miss">${t}</span>`).join('')}</div></div>`:''}
+    </div></div>`:'';
 
-    const data = await response.json();
-    const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+  const lineH=`<div class="result-section">
+    <div class="rs-header" style="color:var(--text2)">📏 Độ dài code</div>
+    <div class="rs-body">Bài mẫu: ${sm.lines} dòng &nbsp;·&nbsp; Bài bạn: ${ss.lines} dòng${Math.abs(ss.lines-sm.lines)>sm.lines*0.6?'&nbsp;&nbsp;<span style="color:var(--yellow)">⚠ Chênh lớn — có thể thiếu hàm</span>':'&nbsp;&nbsp;<span style="color:var(--text3)">OK</span>'}</div></div>`;
 
-    let result;
-    try {
-      const cleaned = raw.replace(/```json|```/g, '').trim();
-      result = JSON.parse(cleaned);
-    } catch(e) {
-      result = {
-        verdict: 'error',
-        score: 0,
-        simulatedOutput: '',
-        checks: [],
-        summary: 'Không thể phân tích phản hồi từ AI.',
-        suggestion: raw
-      };
-    }
-
-    results[currentQ.id] = result.verdict;
-    renderResult(result);
-    renderQuestions();
-
-  } catch(err) {
-    renderResult({
-      verdict: 'error',
-      score: 0,
-      simulatedOutput: '',
-      checks: [],
-      summary: 'Lỗi kết nối API: ' + err.message,
-      suggestion: 'Kiểm tra lại API key và kết nối mạng. Lấy key tại: aistudio.google.com/apikey'
-    });
-  } finally {
-    btn.disabled = false;
-    btn.classList.remove('loading');
-    document.getElementById('loading-overlay').className = 'loading-overlay';
-  }
+  const panel=document.getElementById('result-panel');
+  panel.innerHTML=`<div class="result-header ${vc}">
+    <div class="result-verdict"><div class="verdict-icon">${vi}</div>
+      <div><div class="verdict-text">${vl}</div><div class="verdict-sub">Bài ${CQ.id}: ${CQ.title}</div></div>
+    </div><div class="score-badge">${score}/100</div></div>
+    <div class="result-body">${rubH}${structH}${tokenH}${lineH}</div>`;
+  panel.className='result-panel show';
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function buildPrompt(q, code) {
-  return `BÀI TẬP: ${q.title}
-MÔ TẢ: ${q.desc.replace(/<[^>]+>/g,'')}
-
-TIÊU CHÍ CHẤM:
-${q.requirements.map((r,i) => `${i+1}. ${r}`).join('\n')}
-
-INPUT MẪU: ${q.sampleIn}
-OUTPUT MẪU: ${q.sampleOut}
-
-CODE SINH VIÊN:
-\`\`\`cpp
-${code}
-\`\`\`
-
-H�y:
-1. Giả lập output nếu code chạy đúng với input mẫu
-2. Kiểm tra từng tiêu chí (ok/warn/fail)
-3. Đánh giá verdict: correct (đúng hoàn toàn), partial (đúng một phần), wrong (sai hoàn toàn)
-4. Cho điểm 0-100
-5. Nhận xét bằng tiếng Việt`;
-}
-
-function renderResult(r) {
-  const panel = document.getElementById('result-panel');
-  
-  const verdictMap = {
-    correct: { label: 'Đúng hoàn toàn', icon: '✅', cls: 'correct' },
-    partial: { label: 'Đúng một phần', icon: '🟡', cls: 'partial' },
-    wrong: { label: 'Chưa đúng', icon: '❌', cls: 'wrong' },
-    error: { label: 'Lỗi phân tích', icon: '⚠️', cls: 'error' },
-  };
-  const v = verdictMap[r.verdict] || verdictMap.error;
-
-  const checksHtml = r.checks?.length ? `
-    <div class="result-section">
-      <div class="rs-header" style="color:var(--text2)">📋 Checklist tiêu chí</div>
-      <div class="checklist">
-        ${r.checks.map(c => {
-          const icon = c.status === 'ok' ? '✓' : c.status === 'warn' ? '⚠' : '✗';
-          const cls = c.status === 'ok' ? 'check-ok' : c.status === 'warn' ? 'check-warn' : 'check-no';
-          return `<div class="check-item">
-            <span class="check-icon ${cls}">${icon}</span>
-            <span><strong style="color:var(--text)">${c.label}:</strong> ${c.note}</span>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>` : '';
-
-  const outputHtml = r.simulatedOutput ? `
-    <div class="result-section">
-      <div class="rs-header" style="color:var(--blue)">▶ Output giả lập</div>
-      <div class="rs-body">${escapeHtml(r.simulatedOutput)}</div>
-    </div>` : '';
-
-  const summaryHtml = r.summary ? `
-    <div class="result-section">
-      <div class="rs-header" style="color:var(--accent2)">💬 Nhận xét</div>
-      <div class="rs-body">${escapeHtml(r.summary)}</div>
-    </div>` : '';
-
-  const suggHtml = r.suggestion ? `
-    <div class="result-section">
-      <div class="rs-header" style="color:${r.verdict==='correct' ? 'var(--green)' : 'var(--yellow)'}">
-        ${r.verdict==='correct' ? '🌟 Lời khen' : '🔧 Gợi ý sửa lỗi'}
-      </div>
-      <div class="rs-body">${escapeHtml(r.suggestion)}</div>
-    </div>` : '';
-
-  panel.innerHTML = `
-    <div class="result-header ${v.cls}">
-      <div class="result-verdict">
-        <div class="verdict-icon">${v.icon}</div>
-        <div>
-          <div class="verdict-text">${v.label}</div>
-          <div class="verdict-sub">Bài ${currentQ?.id}: ${currentQ?.title}</div>
-        </div>
-      </div>
-      ${r.score !== undefined ? `<div class="score-badge">${r.score}/100</div>` : ''}
-    </div>
-    <div class="result-body">
-      ${checksHtml}
-      ${outputHtml}
-      ${summaryHtml}
-      ${suggHtml}
-    </div>
-  `;
-  panel.className = 'result-panel show';
-  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
-}
-
-function clearCode() {
-  document.getElementById('code-input').value = '';
-  document.getElementById('result-panel').className = 'result-panel';
-}
-
-// Tab key in textarea
-document.addEventListener('DOMContentLoaded', () => {
-  loadSavedKey();
-  const ta = document.getElementById('code-input');
-  ta.addEventListener('keydown', e => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      const s = ta.selectionStart, end = ta.selectionEnd;
-      ta.value = ta.value.substring(0,s) + '    ' + ta.value.substring(end);
-      ta.selectionStart = ta.selectionEnd = s + 4;
-    }
+document.addEventListener('DOMContentLoaded',()=>{
+  const ta=document.getElementById('code-input');
+  ta.addEventListener('keydown',e=>{
+    if(e.key==='Tab'){e.preventDefault();const s=ta.selectionStart,end=ta.selectionEnd;ta.value=ta.value.substring(0,s)+'    '+ta.value.substring(end);ta.selectionStart=ta.selectionEnd=s+4;}
   });
-  renderQuestions();
+  renderQ();
 });
+
 </script>
 </body>
 </html>
